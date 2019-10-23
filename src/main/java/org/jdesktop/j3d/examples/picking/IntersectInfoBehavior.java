@@ -64,6 +64,7 @@ import org.jogamp.java3d.WakeupOnAWTEvent;
 import org.jogamp.java3d.utils.geometry.Sphere;
 import org.jogamp.java3d.utils.pickfast.PickCanvas;
 import org.jogamp.java3d.utils.pickfast.PickIntersection;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.vecmath.Color3f;
 import org.jogamp.vecmath.Color4f;
 import org.jogamp.vecmath.Point3d;
@@ -84,7 +85,7 @@ public class IntersectInfoBehavior extends Behavior {
   float size;
   PickCanvas pickCanvas;
   PickInfo[] pickInfoArr;
-  Appearance oldlook, redlookwf, redlook, greenlook, bluelook;  
+  SimpleShaderAppearance oldlook, redlookwf, redlook, greenlook, bluelook;  
   Node oldNode = null;
   GeometryArray oldGeom = null;
   Color3f redColor = new Color3f (1.0f, 0.0f, 0.0f);
@@ -100,28 +101,28 @@ public class IntersectInfoBehavior extends Behavior {
     pickCanvas.setFlags(PickInfo.LOCAL_TO_VWORLD | PickInfo.CLOSEST_GEOM_INFO);
     this.size = size;
     // Create an Appearance.
-    redlook = new Appearance();
+    redlook = new SimpleShaderAppearance();
     Color3f objColor = new Color3f(0.5f, 0.0f, 0.0f);
     Color3f black = new Color3f(0.0f, 0.0f, 0.0f);
     Color3f white = new Color3f(1.0f, 1.0f, 1.0f);
     redlook.setMaterial(new Material(objColor, black, objColor, white, 50.0f));
     redlook.setCapability (Appearance.ALLOW_MATERIAL_WRITE);
 
-    redlookwf = new Appearance ();
+    redlookwf = new SimpleShaderAppearance ();
     redlookwf.setMaterial(new Material(objColor, black, objColor, white, 50.0f));
     PolygonAttributes pa = new PolygonAttributes();
     pa.setPolygonMode(pa.POLYGON_LINE);
     pa.setCullFace(pa.CULL_NONE);
     redlookwf.setPolygonAttributes(pa);
 
-    oldlook = new Appearance();
+    oldlook = new SimpleShaderAppearance();
     objColor = new Color3f(1.0f, 1.0f, 1.0f);
     oldlook.setMaterial(new Material(objColor, black, objColor, white, 50.0f));
 
-    greenlook = new Appearance();
+    greenlook = new SimpleShaderAppearance();
     objColor = new Color3f(0.0f, 0.8f, 0.0f);
     greenlook.setMaterial(new Material(objColor, black, objColor, white, 50.0f));
-    bluelook = new Appearance();
+    bluelook = new SimpleShaderAppearance();
     objColor = new Color3f(0.0f, 0.0f, 0.8f);
     bluelook.setMaterial(new Material(objColor, black, objColor, white, 50.0f));
     for (int i=0;i<6;i++) {

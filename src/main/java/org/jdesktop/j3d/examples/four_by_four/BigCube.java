@@ -44,9 +44,10 @@
 
 package org.jdesktop.j3d.examples.four_by_four;
 
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.QuadArray;
+import org.jogamp.java3d.ShaderAppearance;
 import org.jogamp.java3d.Shape3D;
+import org.jogamp.java3d.utils.geometry.GeometryInfo;
 
 /**
  * Class        BigCube
@@ -102,21 +103,23 @@ public class BigCube extends Object {
       0.0f, -1.0f,  0.0f,     0.0f, -1.0f,  0.0f,
    };
 
-   public BigCube(Appearance appearance) {
+   public BigCube(ShaderAppearance appearance) {
 
       QuadArray quadArray = new QuadArray(24, QuadArray.COORDINATES |
                                               QuadArray.NORMALS );
       quadArray.setCoordinates(0, verts);
       quadArray.setNormals(0, normals);
-
-      shape3D = new Shape3D(quadArray, appearance);
+      
+      GeometryInfo gi = new GeometryInfo(quadArray);
+  	  gi.convertToIndexedTriangles();	
+  	  shape3D = new Shape3D(gi.getIndexedGeometryArray(true, true, true, true, true), appearance);
       shape3D.setCapability(Shape3D.ALLOW_GEOMETRY_READ);
       shape3D.setCapability(Shape3D.ALLOW_GEOMETRY_WRITE);
       shape3D.setCapability(Shape3D.ALLOW_APPEARANCE_READ);
       shape3D.setCapability(Shape3D.ALLOW_APPEARANCE_WRITE);
    }
 
-   public BigCube(Appearance appearance, float size) {
+   public BigCube(ShaderAppearance appearance, float size) {
 
       QuadArray quadArray = new QuadArray(24, QuadArray.COORDINATES | 
                                               QuadArray.NORMALS );
@@ -125,8 +128,9 @@ public class BigCube extends Object {
 
       quadArray.setCoordinates(0, verts);
       quadArray.setNormals(0, normals);
-
-      shape3D = new Shape3D(quadArray, appearance);
+      GeometryInfo gi = new GeometryInfo(quadArray);
+  	  gi.convertToIndexedTriangles();	
+  	  shape3D = new Shape3D(gi.getIndexedGeometryArray(true, true, true, true, true), appearance);
       shape3D.setCapability(Shape3D.ALLOW_GEOMETRY_READ);
       shape3D.setCapability(Shape3D.ALLOW_GEOMETRY_WRITE);
       shape3D.setCapability(Shape3D.ALLOW_APPEARANCE_READ);

@@ -44,8 +44,6 @@
 
 package org.jdesktop.j3d.examples.oriented_shape3d;
 
-import java.awt.AWTEvent;
-import java.awt.event.MouseEvent;
 import java.util.Iterator;
 
 import org.jogamp.java3d.TransformGroup;

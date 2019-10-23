@@ -43,13 +43,11 @@
  */
 package org.jdesktop.j3d.examples.sound;
 
-import java.awt.GraphicsConfiguration;
 import java.net.URL;
 
 import org.jdesktop.j3d.examples.Resources;
 import org.jdesktop.j3d.examples.sound.audio.JOALMixer;
 import org.jogamp.java3d.AmbientLight;
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.BackgroundSound;
 import org.jogamp.java3d.BoundingSphere;
 import org.jogamp.java3d.Bounds;
@@ -68,6 +66,7 @@ import org.jogamp.java3d.TransformGroup;
 import org.jogamp.java3d.utils.behaviors.keyboard.KeyNavigatorBehavior;
 import org.jogamp.java3d.utils.geometry.ColorCube;
 import org.jogamp.java3d.utils.geometry.Sphere;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.java3d.utils.universe.Viewer;
 import org.jogamp.java3d.utils.universe.ViewingPlatform;
@@ -109,7 +108,7 @@ public class BackgroundSoundTest extends javax.swing.JFrame {
             count++;
         }
         shape.setGeometry(la);
-        Appearance a = new Appearance();
+        SimpleShaderAppearance a = new SimpleShaderAppearance();
         ColoringAttributes ca = new ColoringAttributes();
         ca.setColor(0.3f, 0.3f, 0.3f);
         a.setColoringAttributes(ca);
@@ -133,7 +132,7 @@ public class BackgroundSoundTest extends javax.swing.JFrame {
     
    private Sphere getSphere(float radius){
        
-       Appearance a = new Appearance();
+	   SimpleShaderAppearance a = new SimpleShaderAppearance();
        Material m = new Material();
        
        m.setDiffuseColor(1, 0, 0);
@@ -194,11 +193,11 @@ public class BackgroundSoundTest extends javax.swing.JFrame {
     
     private Canvas3D createUniverse() {
         // Get the preferred graphics configuration for the default screen
-	GraphicsConfiguration config =
-	    SimpleUniverse.getPreferredConfiguration();
+	//GraphicsConfiguration config =
+	//    SimpleUniverse.getPreferredConfiguration();
 
         // Create a Canvas3D using the preferred configuration
-	Canvas3D c = new Canvas3D(config);
+	Canvas3D c = new Canvas3D();
 
         // Create simple universe with view branch
 	univ = new SimpleUniverse(c);       
@@ -266,7 +265,7 @@ public class BackgroundSoundTest extends javax.swing.JFrame {
         
         // Create Canvas3D and SimpleUniverse; add canvas to drawing panel
         Canvas3D c = createUniverse();
-        drawingPanel.add(c, java.awt.BorderLayout.CENTER);
+        c.addNotify();//drawingPanel.add(c, java.awt.BorderLayout.CENTER);
 
         // Create the content branch and add it to the universe
         scene = createSceneGraph();

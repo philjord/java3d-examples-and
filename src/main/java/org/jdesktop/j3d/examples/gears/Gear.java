@@ -44,8 +44,8 @@
 
 package org.jdesktop.j3d.examples.gears;
 
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.GeometryArray;
+import org.jogamp.java3d.ShaderAppearance;
 import org.jogamp.java3d.Shape3D;
 import org.jogamp.java3d.TransformGroup;
 import org.jogamp.java3d.TriangleStripArray;
@@ -85,7 +85,7 @@ public class Gear extends TransformGroup {
     }
 
     void addBodyDisks(float shaftRadius, float bodyOuterRadius,
-		      float thickness, Appearance look) {
+		      float thickness, ShaderAppearance look) {
 	int gearBodySegmentVertexCount;		// #(segments) per tooth-unit
 	int gearBodyTotalVertexCount;		// #(vertices) in a gear face
 	int gearBodyStripCount[] = new int[1];	// per strip (1) vertex count
@@ -263,7 +263,7 @@ public class Gear extends TransformGroup {
     }
 
     void addCylinderSkins(float shaftRadius, float length,
-			  int normalDirection, Appearance look) {
+			  int normalDirection, ShaderAppearance look) {
 	int insideShaftVertexCount;		  // #(vertices) for shaft
 	int insideShaftStripCount[] = new int[1]; // #(vertices) in strip/strip
 	double toothStartAngle, nextToothStartAngle, toothValleyStartAngle;

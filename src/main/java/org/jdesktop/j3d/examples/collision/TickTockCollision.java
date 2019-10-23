@@ -44,8 +44,6 @@
 
 package org.jdesktop.j3d.examples.collision;
 
-import java.awt.GraphicsConfiguration;
-
 import org.jogamp.java3d.Alpha;
 import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.Background;
@@ -179,7 +177,7 @@ public class TickTockCollision extends javax.swing.JFrame {
 	Appearance app = shape.getAppearance();
 	ColoringAttributes ca = new ColoringAttributes();
 	ca.setColor(0.6f, 0.3f, 0.0f);
-	app.setCapability(app.ALLOW_COLORING_ATTRIBUTES_WRITE);
+	app.setCapability(Appearance.ALLOW_COLORING_ATTRIBUTES_WRITE);
 	app.setColoringAttributes(ca);
 
 	// Create a new Behavior object that will perform the collision
@@ -198,11 +196,11 @@ public class TickTockCollision extends javax.swing.JFrame {
 
     private Canvas3D createUniverse() {
 	// Get the preferred graphics configuration for the default screen
-	GraphicsConfiguration config =
-	    SimpleUniverse.getPreferredConfiguration();
+	//GraphicsConfiguration config =
+	//    SimpleUniverse.getPreferredConfiguration();
 
 	// Create a Canvas3D using the preferred configuration
-	Canvas3D c = new Canvas3D(config);
+	Canvas3D c = new Canvas3D();
 
 	// Create simple universe with view branch
 	univ = new SimpleUniverse(c);
@@ -226,7 +224,7 @@ public class TickTockCollision extends javax.swing.JFrame {
 
 	// Create Canvas3D and SimpleUniverse; add canvas to drawing panel
 	Canvas3D c = createUniverse();
-	drawingPanel.add(c, java.awt.BorderLayout.CENTER);
+	c.addNotify();//drawingPanel.add(c, java.awt.BorderLayout.CENTER);
 
 	// Create the content branch and add it to the universe
 	scene = createSceneGraph();

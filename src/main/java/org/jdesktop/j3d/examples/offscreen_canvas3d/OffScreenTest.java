@@ -46,7 +46,7 @@ package org.jdesktop.j3d.examples.offscreen_canvas3d;
 
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
-import java.awt.image.BufferedImage;
+import javaawt.image.BufferedImage;
 
 import org.jogamp.java3d.BranchGroup;
 import org.jogamp.java3d.GraphicsConfigTemplate3D;
@@ -117,11 +117,11 @@ public class OffScreenTest extends javax.swing.JFrame {
 
     private OnScreenCanvas3D createOnScreenCanvasAndUniverse() {
         // Get the preferred graphics configuration for the default screen
-	GraphicsConfiguration config =
-	    SimpleUniverse.getPreferredConfiguration();
+	//GraphicsConfiguration config =
+	//    SimpleUniverse.getPreferredConfiguration();
 
         // Create a Canvas3D using the preferred configuration
-	OnScreenCanvas3D onScrCanvas = new OnScreenCanvas3D(config, false);
+	OnScreenCanvas3D onScrCanvas = new OnScreenCanvas3D(false);
 
         // Create simple universe with view branch
 	univ = new SimpleUniverse(onScrCanvas);
@@ -140,13 +140,13 @@ public class OffScreenTest extends javax.swing.JFrame {
 	// request an offscreen Canvas3D with a single buffer configuration
 	GraphicsConfigTemplate3D template = new GraphicsConfigTemplate3D();
 	template.setDoubleBuffer(GraphicsConfigTemplate3D.UNNECESSARY);
-	GraphicsConfiguration gc = 
-                GraphicsEnvironment.getLocalGraphicsEnvironment().
-                getDefaultScreenDevice().getBestConfiguration(template);
+	//GraphicsConfiguration gc = 
+    //            GraphicsEnvironment.getLocalGraphicsEnvironment().
+   //             getDefaultScreenDevice().getBestConfiguration(template);
 
         // Create a offscreen Canvas3D using the single buffer configuration.
         OffScreenCanvas3D offScrCanvas = 
-                new OffScreenCanvas3D(gc, true, drawRaster);
+                new OffScreenCanvas3D(true, drawRaster);
 
         return offScrCanvas;
     }
@@ -163,7 +163,7 @@ public class OffScreenTest extends javax.swing.JFrame {
         
         // Create an OnScreenCanvas3D and SimpleUniverse; add canvas to drawing panel
         OnScreenCanvas3D onScreenCanvas = createOnScreenCanvasAndUniverse();
-        drawingPanel.add(onScreenCanvas, java.awt.BorderLayout.CENTER);	
+        onScreenCanvas.addNotify();//drawingPanel.add(onScreenCanvas, java.awt.BorderLayout.CENTER);	
 
 	// Creante an OffScreenCanvas3D
         OffScreenCanvas3D offScreenCanvas = createOffScreenCanvas();
@@ -216,7 +216,9 @@ public class OffScreenTest extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {System.setProperty("sun.awt.noerasebackground", "true"); 
+    public static void main(String args[]) {
+    	System.setProperty("sun.awt.noerasebackground", "true"); 
+    	
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new OffScreenTest().setVisible(true);

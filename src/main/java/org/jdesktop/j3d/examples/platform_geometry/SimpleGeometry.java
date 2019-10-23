@@ -46,10 +46,8 @@ package org.jdesktop.j3d.examples.platform_geometry;
 
 import java.applet.Applet;
 import java.awt.BorderLayout;
-import java.awt.GraphicsConfiguration;
 
 import org.jogamp.java3d.Alpha;
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.BoundingSphere;
 import org.jogamp.java3d.BranchGroup;
 import org.jogamp.java3d.Canvas3D;
@@ -61,6 +59,7 @@ import org.jogamp.java3d.utils.applet.MainFrame;
 import org.jogamp.java3d.utils.behaviors.mouse.MouseTranslate;
 import org.jogamp.java3d.utils.geometry.ColorCube;
 import org.jogamp.java3d.utils.geometry.Cylinder;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.java3d.utils.universe.PlatformGeometry;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.java3d.utils.universe.ViewingPlatform;
@@ -130,7 +129,7 @@ public class SimpleGeometry extends Applet {
     /*
      * Create the geometry to add to the platform geometry. 
      */
-    PlatformGeometry createAimer() {
+    PlatformGeometry createAimer(Canvas3D c) {
 
         PlatformGeometry pg = new PlatformGeometry();
 
@@ -140,8 +139,8 @@ public class SimpleGeometry extends Applet {
         TransformGroup moveTG = new TransformGroup();
         moveTG.setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
         moveTG.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
-        MouseTranslate mouseT = new MouseTranslate(moveTG);
-	moveTG.addChild(mouseT);
+        MouseTranslate mouseT = new MouseTranslate(c, moveTG);
+        moveTG.addChild(mouseT);
         BoundingSphere bounds =
           new BoundingSphere(new Point3d(0.0,0.0,0.0), 100.0);
         mouseT.setSchedulingBounds(bounds);
@@ -159,7 +158,7 @@ public class SimpleGeometry extends Applet {
         moveTG.addChild(placementTG);
 
         // Create the cylinder - make it thin and transparent.
-        Appearance cylinderAppearance = new Appearance();
+        SimpleShaderAppearance cylinderAppearance = new SimpleShaderAppearance();
         TransparencyAttributes transAttrs =
            new TransparencyAttributes(TransparencyAttributes.FASTEST, 0.5f);
 	//        cylinderAppearance.setTransparencyAttributes(transAttrs);
@@ -172,18 +171,18 @@ public class SimpleGeometry extends Applet {
     public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
 
         setLayout(new BorderLayout());
-        GraphicsConfiguration config =
-           SimpleUniverse.getPreferredConfiguration();
+        //GraphicsConfiguration config =
+        //   SimpleUniverse.getPreferredConfiguration();
 
-        Canvas3D c = new Canvas3D(config);
-	add("Center", c);
+        Canvas3D c = new Canvas3D();
+        c.addNotify();//add("Center", c);
 
-	// Create a simple scene and attach it to the virtual universe
-	BranchGroup scene = createSceneGraph();
+        // Create a simple scene and attach it to the virtual universe
+        BranchGroup scene = createSceneGraph();
 
         u = new SimpleUniverse(c);
         
-        PlatformGeometry pg = createAimer();
+        PlatformGeometry pg = createAimer(c);
 
         // Now set the just created PlatformGeometry.
         ViewingPlatform vp = u.getViewingPlatform();
@@ -194,7 +193,7 @@ public class SimpleGeometry extends Applet {
         u.getViewingPlatform().setNominalViewingTransform();
 
         // Add everthing to the scene graph - it will now be displayed.
-	u.addBranchGraph(scene);
+        u.addBranchGraph(scene);
     }
 
     public SimpleGeometry(String[] args) {

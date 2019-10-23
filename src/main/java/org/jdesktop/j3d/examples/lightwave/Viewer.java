@@ -108,11 +108,11 @@ public class Viewer extends Applet {
 
 	// Construct the applet canvas
 	setLayout(new BorderLayout());
-        GraphicsConfiguration config =
-           SimpleUniverse.getPreferredConfiguration();
+    //    GraphicsConfiguration config =
+    //       SimpleUniverse.getPreferredConfiguration();
 
-        Canvas3D c = new Canvas3D(config);
-	add("Center", c);
+        Canvas3D c = new Canvas3D();
+	c.addNotify();//add("Center", c);
 
 	// Create a basic universe setup and the root of our scene
 	u = new SimpleUniverse(c);

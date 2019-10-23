@@ -44,9 +44,10 @@
 
 package org.jdesktop.j3d.examples.four_by_four;
 
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.QuadArray;
+import org.jogamp.java3d.ShaderAppearance;
 import org.jogamp.java3d.Shape3D;
+import org.jogamp.java3d.utils.geometry.GeometryInfo;
 
 public class Cylinder {
    
@@ -56,7 +57,7 @@ public class Cylinder {
    float div = 3.0f;
    Shape3D shape;
 
-   public Cylinder(float x, float z, float radius, float length, int quality, Appearance a) {
+   public Cylinder(float x, float z, float radius, float length, int quality, ShaderAppearance a) {
 
       if (quality < 3) quality = 3;
 
@@ -108,7 +109,9 @@ public class Cylinder {
                                       QuadArray.NORMALS );
       quad.setCoordinates(0, verts);
       quad.setNormals(0, normals);
-      shape = new Shape3D(quad, a);
+      GeometryInfo gi = new GeometryInfo(quad);
+  	  gi.convertToIndexedTriangles();	
+      shape = new Shape3D(gi.getIndexedGeometryArray(true, true, true, true, true), a);
    }
 
    Shape3D getShape(){

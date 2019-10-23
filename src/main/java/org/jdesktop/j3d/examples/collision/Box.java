@@ -44,9 +44,10 @@
 
 package org.jdesktop.j3d.examples.collision;
 
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.QuadArray;
 import org.jogamp.java3d.Shape3D;
+import org.jogamp.java3d.utils.geometry.GeometryInfo;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.vecmath.Point3d;
 
 public class Box extends Shape3D {
@@ -96,7 +97,9 @@ public class Box extends Shape3D {
 	verts[23] = new Point3d(xmax, ymin, zmax);
 
 	box.setCoordinates(0, verts);
-        setGeometry(box);
-	setAppearance(new Appearance());
+	GeometryInfo gi = new GeometryInfo(box);
+	gi.convertToIndexedTriangles();	
+    setGeometry(gi.getIndexedGeometryArray(true, true, true, true, true));
+	setAppearance(new SimpleShaderAppearance());
     }
 }

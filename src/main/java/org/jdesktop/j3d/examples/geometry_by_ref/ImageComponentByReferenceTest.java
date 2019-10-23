@@ -73,6 +73,7 @@ import org.jogamp.java3d.TransformGroup;
 import org.jogamp.java3d.utils.applet.MainFrame;
 import org.jogamp.java3d.utils.geometry.Box;
 import org.jogamp.java3d.utils.image.TextureLoader;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.vecmath.Point3d;
 import org.jogamp.vecmath.Point3f;
@@ -84,7 +85,7 @@ public class ImageComponentByReferenceTest extends JApplet implements ActionList
     TextureLoader t0, t1, t2;
     int count = 0;
 
-    Appearance app = new Appearance();
+    SimpleShaderAppearance app = new SimpleShaderAppearance();
     BranchGroup objRoot = new BranchGroup();
     TransformGroup objTrans = new TransformGroup();
     BufferedImage bImage1;
@@ -93,7 +94,7 @@ public class ImageComponentByReferenceTest extends JApplet implements ActionList
     boolean byRef = true;
     JComboBox rasterType, texType;
     ImageComponent2D[] image = new ImageComponent2D[8];
-    Appearance dummyApp = new Appearance();
+    SimpleShaderAppearance dummyApp = new SimpleShaderAppearance();
     Texture2D texOne, texCheckBoard;
     Raster raster;
     Box textureCube;
@@ -272,8 +273,9 @@ public class ImageComponentByReferenceTest extends JApplet implements ActionList
             System.exit(1);
         }
         
-        Canvas3D c = new Canvas3D(SimpleUniverse.getPreferredConfiguration());
-        BranchGroup scene = createSceneGraph();u = new SimpleUniverse(c);
+        Canvas3D c = new Canvas3D();
+        BranchGroup scene = createSceneGraph();
+        u = new SimpleUniverse(c);
         u.getViewingPlatform().setNominalViewingTransform();
         u.addBranchGraph(scene);
         Container contentPane = getContentPane();
@@ -281,7 +283,7 @@ public class ImageComponentByReferenceTest extends JApplet implements ActionList
         BoxLayout boxlayout = new BoxLayout(p,
                 BoxLayout.Y_AXIS);
         p.setLayout(boxlayout);
-        contentPane.add("Center", c);
+        c.addNotify();//contentPane.add("Center", c);
         
         contentPane.add("South", p);
         

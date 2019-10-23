@@ -29,7 +29,6 @@
 
 package org.jdesktop.j3d.examples.gl2es2pipeline;
 
-import java.awt.GraphicsConfiguration;
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -39,7 +38,6 @@ import java.nio.FloatBuffer;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.Background;
 import org.jogamp.java3d.BoundingSphere;
 import org.jogamp.java3d.BranchGroup;
@@ -56,6 +54,7 @@ import org.jogamp.java3d.Shape3D;
 import org.jogamp.java3d.SourceCodeShader;
 import org.jogamp.java3d.TransformGroup;
 import org.jogamp.java3d.TriangleArray;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.java3d.utils.shader.StringIO;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.java3d.utils.universe.ViewingPlatform;
@@ -100,9 +99,9 @@ public class VertexAttrTestGLSL extends javax.swing.JFrame
 
 	private Canvas3D initScene()
 	{
-		GraphicsConfiguration config = SimpleUniverse.getPreferredConfiguration();
+		//GraphicsConfiguration config = SimpleUniverse.getPreferredConfiguration();
 
-		Canvas3D c = new Canvas3D(config);
+		Canvas3D c = new Canvas3D();
 		univ = new SimpleUniverse(c);
 
 		// Add a ShaderErrorListener
@@ -133,7 +132,7 @@ public class VertexAttrTestGLSL extends javax.swing.JFrame
 
 		// Create the scene and add the Canvas3D to the drawing panel
 		Canvas3D c = initScene();
-		drawingPanel.add(c, java.awt.BorderLayout.CENTER);
+		c.addNotify();//drawingPanel.add(c, java.awt.BorderLayout.CENTER);
 	}
 
 	static class MyShape extends Shape3D
@@ -223,7 +222,7 @@ public class VertexAttrTestGLSL extends javax.swing.JFrame
 			else
 			{
 				this.setGeometry(tri);
-				this.setAppearance(new Appearance());
+				this.setAppearance(new SimpleShaderAppearance());
 			}
 		}
 	}

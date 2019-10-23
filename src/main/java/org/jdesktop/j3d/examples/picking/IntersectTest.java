@@ -196,11 +196,11 @@ public class IntersectTest extends Applet {
     public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
 	setLayout(new BorderLayout());
 	
-	GraphicsConfiguration config =
-	    SimpleUniverse.getPreferredConfiguration();
+	//GraphicsConfiguration config =
+	//    SimpleUniverse.getPreferredConfiguration();
 	
-	Canvas3D c = new Canvas3D(config);
-	add("Center", c);
+	Canvas3D c = new Canvas3D();
+	c.addNotify();//add("Center", c);
 	
 	// Create a simple scene and attach it to the virtual universe
 	BranchGroup scene = createSceneGraph();

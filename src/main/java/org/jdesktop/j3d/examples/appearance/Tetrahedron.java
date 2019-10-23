@@ -44,9 +44,9 @@
 
 package org.jdesktop.j3d.examples.appearance;
 
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.Shape3D;
 import org.jogamp.java3d.TriangleArray;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.vecmath.Point3f;
 import org.jogamp.vecmath.TexCoord2f;
 import org.jogamp.vecmath.Vector3f;
@@ -79,7 +79,7 @@ public class Tetrahedron extends Shape3D {
         new TexCoord2f(0.5f, sqrt3 / 2.0f),
     };
 
-    public Tetrahedron(Appearance app) {
+    public Tetrahedron(SimpleShaderAppearance app) {
 	int i;
 
 	TriangleArray tetra = new TriangleArray(12, TriangleArray.COORDINATES |

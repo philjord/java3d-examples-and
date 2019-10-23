@@ -55,9 +55,9 @@ class OnScreenCanvas3D extends Canvas3D {
   boolean print = false;
   boolean imageReady = false;
 
-  public OnScreenCanvas3D(GraphicsConfiguration gconfig, boolean offscreenflag) 
+  public OnScreenCanvas3D(boolean offscreenflag) 
   {
-    super(gconfig, offscreenflag);
+    super(offscreenflag);
   }
 
   public void setOffScreenCanvas(OffScreenCanvas3D c) 

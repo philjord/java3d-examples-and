@@ -113,10 +113,10 @@ public class VertexAttrTestGLSL extends javax.swing.JFrame {
     }
     
     private Canvas3D initScene() {
-        GraphicsConfiguration config =
-                SimpleUniverse.getPreferredConfiguration();
+        //GraphicsConfiguration config =
+        //        SimpleUniverse.getPreferredConfiguration();
         
-        Canvas3D c = new Canvas3D(config);
+        Canvas3D c = new Canvas3D();
         univ = new SimpleUniverse(c);
 
         // Add a ShaderErrorListener
@@ -147,7 +147,7 @@ public class VertexAttrTestGLSL extends javax.swing.JFrame {
         
         // Create the scene and add the Canvas3D to the drawing panel
         Canvas3D c = initScene();
-        drawingPanel.add(c, java.awt.BorderLayout.CENTER);
+        c.addNotify();//drawingPanel.add(c, java.awt.BorderLayout.CENTER);
     }
     
     static class MyShape extends Shape3D {

@@ -29,12 +29,10 @@
 
 package org.jdesktop.j3d.examples.overlay2d;
 
-import java.awt.GraphicsConfiguration;
 import java.net.URL;
 
 import org.jdesktop.j3d.examples.Resources;
 import org.jogamp.java3d.Alpha;
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.BoundingSphere;
 import org.jogamp.java3d.BranchGroup;
 import org.jogamp.java3d.GeometryArray;
@@ -47,6 +45,7 @@ import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.TransformGroup;
 import org.jogamp.java3d.TriangleArray;
 import org.jogamp.java3d.utils.image.TextureLoader;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.vecmath.Color3f;
 import org.jogamp.vecmath.Point3d;
@@ -88,7 +87,7 @@ public class Overlay2D extends javax.swing.JFrame
 
 		// Because we're about to spin this triangle, be sure to draw
 		// backfaces.  If we don't, the back side of the triangle is invisible.
-		Appearance ap = new Appearance();
+		SimpleShaderAppearance ap = new SimpleShaderAppearance();
 		PolygonAttributes pa = new PolygonAttributes();
 		pa.setCullFace(PolygonAttributes.CULL_NONE);
 		ap.setPolygonAttributes(pa);
@@ -129,10 +128,10 @@ public class Overlay2D extends javax.swing.JFrame
 	private Canvas3D2D createUniverse()
 	{
 		// Get the preferred graphics configuration for the default screen
-		GraphicsConfiguration config = SimpleUniverse.getPreferredConfiguration();
+		//GraphicsConfiguration config = SimpleUniverse.getPreferredConfiguration();
 
 		// Create a Canvas3D using the preferred configuration
-		Canvas3D2D c = new Canvas3D2D(config);
+		Canvas3D2D c = new Canvas3D2D();
 
 		// Create simple universe with view branch
 		univ = new SimpleUniverse(c);
@@ -154,7 +153,7 @@ public class Overlay2D extends javax.swing.JFrame
 
 		// Create Canvas3D and SimpleUniverse; add canvas to drawing panel
 		Canvas3D2D c = createUniverse();
-		drawingPanel.add(c, java.awt.BorderLayout.CENTER);
+		c.addNotify();//drawingPanel.add(c, java.awt.BorderLayout.CENTER);
 
 		// Create the content branch and add it to the universe
 		scene = createSceneGraph();

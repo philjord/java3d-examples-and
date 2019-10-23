@@ -48,7 +48,6 @@ import java.applet.Applet;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.GraphicsConfiguration;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -86,6 +85,7 @@ import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.TransformGroup;
 import org.jogamp.java3d.utils.applet.MainFrame;
 import org.jogamp.java3d.utils.image.TextureLoader;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.vecmath.Color3f;
 import org.jogamp.vecmath.Point3d;
@@ -165,11 +165,11 @@ implements ItemListener, ActionListener, ChangeListener {
       }
     }
     setLayout(new BorderLayout());
-    GraphicsConfiguration config = SimpleUniverse.getPreferredConfiguration();
+    //GraphicsConfiguration config = SimpleUniverse.getPreferredConfiguration();
 
-    Canvas3D canvas = new Canvas3D(config);
+    Canvas3D canvas = new Canvas3D();
 
-    add("Center", canvas);
+    canvas.addNotify();//add("Center", canvas);
 
     // create a simple scene graph and attach it to a simple universe
     BranchGroup scene = createSceneGraph();
@@ -368,7 +368,7 @@ implements ItemListener, ActionListener, ChangeListener {
     objRoot.addChild(lgt1);
     
 
-    Appearance appearance = new Appearance();
+    SimpleShaderAppearance appearance = new SimpleShaderAppearance();
 
     // enable the TEXTURE_WRITE so we can modify it at runtime
     appearance.setCapability(Appearance.ALLOW_TEXTURE_WRITE);

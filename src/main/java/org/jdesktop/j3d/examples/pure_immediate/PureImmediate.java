@@ -44,16 +44,15 @@
 
 package org.jdesktop.j3d.examples.pure_immediate;
 
-import java.awt.GraphicsConfiguration;
 
 import org.jogamp.java3d.Alpha;
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.BranchGroup;
 import org.jogamp.java3d.Canvas3D;
 import org.jogamp.java3d.Geometry;
 import org.jogamp.java3d.GraphicsContext3D;
 import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.utils.geometry.ColorCube;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 
 /**
@@ -84,7 +83,7 @@ public class PureImmediate extends javax.swing.JFrame implements Runnable {
 	if (gc == null) {
 	    // Set up Graphics context
 	    gc = canvas.getGraphicsContext3D();
-	    gc.setAppearance(new Appearance());
+	    gc.setAppearance(new SimpleShaderAppearance());
 
 	    // Set up geometry
 	    cube = new ColorCube(0.4).getGeometry();
@@ -115,11 +114,11 @@ public class PureImmediate extends javax.swing.JFrame implements Runnable {
 
     private void createUniverse() {
 	// Get the preferred graphics configuration for the default screen
-	GraphicsConfiguration config =
-	    SimpleUniverse.getPreferredConfiguration();
+	//GraphicsConfiguration config =
+	//    SimpleUniverse.getPreferredConfiguration();
 
 	// Create a Canvas3D using the preferred configuration
-	canvas = new Canvas3D(config);
+	canvas = new Canvas3D();
         canvas.stopRenderer();
 	// Create simple universe with view branch
 	univ = new SimpleUniverse(canvas);
@@ -141,7 +140,7 @@ public class PureImmediate extends javax.swing.JFrame implements Runnable {
 
 	// Create Canvas3D and SimpleUniverse; add canvas to drawing panel
 	createUniverse();
-	drawingPanel.add(canvas, java.awt.BorderLayout.CENTER);
+	canvas.addNotify();//drawingPanel.add(canvas, java.awt.BorderLayout.CENTER);
         
         // Start a new thread that will continuously render
 	new Thread(this).start();

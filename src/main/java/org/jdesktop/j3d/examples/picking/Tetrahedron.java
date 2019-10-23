@@ -44,10 +44,10 @@
 
 package org.jdesktop.j3d.examples.picking;
 
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.Geometry;
 import org.jogamp.java3d.Shape3D;
 import org.jogamp.java3d.TriangleArray;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.vecmath.Point3f;
 import org.jogamp.vecmath.TexCoord2f;
 import org.jogamp.vecmath.Vector3f;
@@ -112,6 +112,6 @@ public class Tetrahedron extends Shape3D {
 	tetra.setCapability(Geometry.ALLOW_INTERSECT);
 
 	this.setGeometry(tetra);
-	this.setAppearance(new Appearance());
+	this.setAppearance(new SimpleShaderAppearance());
     }
 }

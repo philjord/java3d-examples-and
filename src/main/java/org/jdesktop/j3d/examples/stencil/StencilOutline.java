@@ -29,8 +29,6 @@
 
 package org.jdesktop.j3d.examples.stencil;
 
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsEnvironment;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -48,7 +46,6 @@ import org.jogamp.java3d.BranchGroup;
 import org.jogamp.java3d.Canvas3D;
 import org.jogamp.java3d.ColoringAttributes;
 import org.jogamp.java3d.DirectionalLight;
-import org.jogamp.java3d.GraphicsConfigTemplate3D;
 import org.jogamp.java3d.Group;
 import org.jogamp.java3d.LineAttributes;
 import org.jogamp.java3d.Material;
@@ -68,6 +65,7 @@ import org.jogamp.java3d.loaders.ParsingErrorException;
 import org.jogamp.java3d.loaders.Scene;
 import org.jogamp.java3d.loaders.objectfile.ObjectFile;
 import org.jogamp.java3d.utils.behaviors.vp.OrbitBehavior;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.java3d.utils.universe.PlatformGeometry;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.java3d.utils.universe.ViewingPlatform;
@@ -194,14 +192,14 @@ public class StencilOutline extends javax.swing.JFrame
 	{
 		// Critical!!! notice this is not using this call, but explicitly asks for a stencil buffer
 		//GraphicsConfiguration config = SimpleUniverse.getPreferredConfiguration();		
-		GraphicsConfigTemplate3D template = new GraphicsConfigTemplate3D();
-		template.setStencilSize(16);
+		//GraphicsConfigTemplate3D template = new GraphicsConfigTemplate3D();
+		//template.setStencilSize(16);
 		// Return the GraphicsConfiguration that best fits our needs.
-		GraphicsConfiguration config = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice()
-				.getBestConfiguration(template);
+		//GraphicsConfiguration config = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice()
+		//		.getBestConfiguration(template);
 
 		// Create a Canvas3D using the preferred configuration
-		Canvas3D canvas3d = new Canvas3D(config);
+		Canvas3D canvas3d = new Canvas3D();
 
 		// Create simple universe with view branch
 		univ = new SimpleUniverse(canvas3d);
@@ -248,12 +246,12 @@ public class StencilOutline extends javax.swing.JFrame
 		// objects in the scene can be viewed.
 		viewingPlatform.setNominalViewingTransform();
 
-		if (!spin)
+		/*if (!spin)
 		{
 			OrbitBehavior orbit = new OrbitBehavior(canvas3d, OrbitBehavior.REVERSE_ALL);
 			orbit.setSchedulingBounds(bounds);
 			viewingPlatform.setViewPlatformBehavior(orbit);
-		}
+		}*/
 
 		// Ensure at least 5 msec per frame (i.e., < 200Hz)
 		univ.getViewer().getView().setMinimumFrameCycleTime(5);
@@ -348,10 +346,8 @@ public class StencilOutline extends javax.swing.JFrame
 				//Outliner gear, note empty geom should be ignored
 				
 				//Uncomment to use the gl2es2 pipeline, also see other commented code
-				//Appearance app = new SimpleShaderAppearance(c);
+				SimpleShaderAppearance app = new SimpleShaderAppearance(c);			
 				
-				//Comment to use the gl2es2 pipeline, also see other commented code
-				Appearance app = new Appearance();
 
 				// lineAntialiasing MUST be true, to force this to be done during rendering pass (otherwise it's hidden)
 				LineAttributes la = new LineAttributes(4, LineAttributes.PATTERN_SOLID, true);
@@ -473,7 +469,7 @@ public class StencilOutline extends javax.swing.JFrame
 
 		// Create Canvas3D and SimpleUniverse; add canvas to drawing panel
 		Canvas3D c = createUniverse();
-		drawingPanel.add(c, java.awt.BorderLayout.CENTER);
+		c.addNotify();//drawingPanel.add(c, java.awt.BorderLayout.CENTER);
 
 		// Create the content branch and add it to the universe
 		scene = createSceneGraph();

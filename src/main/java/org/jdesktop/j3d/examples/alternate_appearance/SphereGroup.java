@@ -44,7 +44,6 @@
 
 package org.jdesktop.j3d.examples.alternate_appearance;
 
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.Group;
 import org.jogamp.java3d.Material;
 import org.jogamp.java3d.Shape3D;
@@ -52,6 +51,7 @@ import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.TransformGroup;
 import org.jogamp.java3d.utils.geometry.Primitive;
 import org.jogamp.java3d.utils.geometry.Sphere;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.vecmath.Color3f;
 import org.jogamp.vecmath.Vector3d;
 
@@ -67,7 +67,7 @@ public class SphereGroup
 		this( 0.25f,   0.75f, 0.75f,   5, 5,      null, false );
 	}
 
-	public SphereGroup( Appearance app )
+	public SphereGroup( SimpleShaderAppearance app )
 	{
 		//    radius   x,y spacing   x,y count  appearance
 		this( 0.25f,   0.75f, 0.75f,   5, 5,      app, false );
@@ -80,11 +80,11 @@ public class SphereGroup
 	}
 
     public SphereGroup( float radius, float xSpacing, float ySpacing,
-			int xCount, int yCount, Appearance app, boolean overrideflag )
+			int xCount, int yCount, SimpleShaderAppearance app, boolean overrideflag )
     {
 	if ( app == null )
 	    {
-		app = new Appearance( );
+		app = new SimpleShaderAppearance( );
 		Material material = new Material( );
 		material.setDiffuseColor( new Color3f( 0.8f, 0.8f, 0.8f ) );
 		material.setSpecularColor( new Color3f( 0.0f, 0.0f, 0.0f ) );

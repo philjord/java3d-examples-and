@@ -44,10 +44,8 @@
 
 package org.jdesktop.j3d.examples.depth_func;
 
-import java.awt.GraphicsConfiguration;
 
 import org.jogamp.java3d.Alpha;
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.BoundingSphere;
 import org.jogamp.java3d.BranchGroup;
 import org.jogamp.java3d.Canvas3D;
@@ -63,6 +61,7 @@ import org.jogamp.java3d.TransformGroup;
 import org.jogamp.java3d.utils.behaviors.mouse.MouseRotate;
 import org.jogamp.java3d.utils.geometry.Box;
 import org.jogamp.java3d.utils.geometry.Sphere;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.vecmath.Color3f;
 import org.jogamp.vecmath.Point3d;
@@ -104,19 +103,19 @@ public class RenderFrame extends javax.swing.JFrame {
     // </editor-fold>//GEN-END:initComponents
     
     void initUniverse() {
-        GraphicsConfiguration config = SimpleUniverse.getPreferredConfiguration();
+        //GraphicsConfiguration config = SimpleUniverse.getPreferredConfiguration();
         
-        Canvas3D c = new Canvas3D(config);
-        add("Center", c);
+        Canvas3D c = new Canvas3D();
+        c.addNotify();//add("Center", c);
         su = new SimpleUniverse(c);
-        su.addBranchGraph( createScene() );
+        su.addBranchGraph( createScene(c) );
         c.getView().setMinimumFrameCycleTime( 10 );
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
     
-    BranchGroup createScene() {
+    BranchGroup createScene(Canvas3D c) {
         BoundingSphere bounds = new BoundingSphere( new Point3d( 0.0, 0.0, 0.0 ), 100.0 );
         
         BranchGroup globalBG = new BranchGroup();
@@ -136,7 +135,7 @@ public class RenderFrame extends javax.swing.JFrame {
         lampsBG.addChild( objectsTGTrans );
         
         //adding a sphere as backgroung so there is something else than flat black, and cut cube removal as an other implication. (seeing through)
-        Appearance globalSphereAppearance = new Appearance();
+        SimpleShaderAppearance globalSphereAppearance = new SimpleShaderAppearance();
         PolygonAttributes globalSpherePA = new PolygonAttributes();
         globalSpherePA.setCullFace( globalSpherePA.CULL_FRONT );// so that interior of the sphere is visible.
         Material globalSphereMaterial = new Material();
@@ -178,7 +177,7 @@ public class RenderFrame extends javax.swing.JFrame {
         rotBoxScaleInt.setSchedulingBounds( bounds );
         rotBoxScaleInt.setBounds( bounds );
         
-        Appearance rotBoxApp = new Appearance();
+        SimpleShaderAppearance rotBoxApp = new SimpleShaderAppearance();
         Material rotBoxMat = new Material();
         rotBoxMat.setDiffuseColor( .4f, .4f, .4f );
         rotBoxApp.setMaterial( rotBoxMat );
@@ -205,7 +204,7 @@ public class RenderFrame extends javax.swing.JFrame {
         //adding static back face wireframe cube
         {
         Box staticWFBoxBack = new Box( );
-        Appearance staticWFBoxApp = new Appearance();
+        SimpleShaderAppearance staticWFBoxApp = new SimpleShaderAppearance();
         Material staticWFBoxMat = new Material();
         staticWFBoxMat.setDiffuseColor( 0.f, 0.f, 0.f );
         staticWFBoxMat.setEmissiveColor( 0.f, .4f, 0.f );
@@ -226,7 +225,7 @@ public class RenderFrame extends javax.swing.JFrame {
          //adding static front face wireframe cube
         {
         Box staticWFBox = new Box( );
-        Appearance staticWFBoxApp = new Appearance();
+        SimpleShaderAppearance staticWFBoxApp = new SimpleShaderAppearance();
         Material staticWFBoxMat = new Material();
         staticWFBoxMat.setDiffuseColor( 0.f, 0.f, 0.f );
         staticWFBoxMat.setEmissiveColor( 0.f, 1.f, 0.f );
@@ -255,7 +254,7 @@ public class RenderFrame extends javax.swing.JFrame {
         {
         Box staticBox = new Box( );
         staticBox.setBounds( bounds );
-        Appearance boxApp = new Appearance();
+        SimpleShaderAppearance boxApp = new SimpleShaderAppearance();
         Material boxMat = new Material();
         boxMat.setDiffuseColor( .7f, .7f, .7f );
         boxApp.setMaterial( boxMat );
@@ -272,7 +271,7 @@ public class RenderFrame extends javax.swing.JFrame {
         oGroup.addChild( staticBoxRotTG );
         
         //adding the mouse rotate behavior to the group of cubes.
-        MouseRotate behavior = new MouseRotate();
+        MouseRotate behavior = new MouseRotate(c);
         behavior.setTransformGroup( objectsTGRot );
         objectsTGRot.addChild( behavior );
         objectsTGRot.setCapability( objectsTGRot.ALLOW_TRANSFORM_READ );

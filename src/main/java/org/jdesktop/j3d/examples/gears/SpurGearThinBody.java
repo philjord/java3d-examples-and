@@ -44,7 +44,7 @@
 
 package org.jdesktop.j3d.examples.gears;
 
-import org.jogamp.java3d.Appearance;
+import org.jogamp.java3d.ShaderAppearance;
 
 public class SpurGearThinBody extends SpurGear {
     
@@ -79,7 +79,7 @@ public class SpurGearThinBody extends SpurGear {
     public SpurGearThinBody(int toothCount, float pitchCircleRadius,
 			    float shaftRadius, float addendum, float dedendum,
 			    float gearThickness,
-		    Appearance look) {
+		    ShaderAppearance look) {
 	this(toothCount, pitchCircleRadius, shaftRadius,
 	     addendum, dedendum, gearThickness, gearThickness, 0.25f, look);
     }
@@ -99,7 +99,7 @@ public class SpurGearThinBody extends SpurGear {
     public SpurGearThinBody(int toothCount, float pitchCircleRadius,
 			    float shaftRadius, float addendum, float dedendum,
 			    float gearThickness, float toothTipThickness,
-			    Appearance look) {
+			    ShaderAppearance look) {
 	this(toothCount, pitchCircleRadius, shaftRadius, addendum,
 	     dedendum, gearThickness, toothTipThickness, 0.25f, look);
 	}
@@ -121,7 +121,7 @@ public class SpurGearThinBody extends SpurGear {
     public SpurGearThinBody(int toothCount, float pitchCircleRadius,
 			    float shaftRadius, float addendum, float dedendum,
 			    float gearThickness, float toothTipThickness,
-			    float toothToValleyAngleRatio, Appearance look) { 
+			    float toothToValleyAngleRatio, ShaderAppearance look) { 
 
 	this(toothCount, pitchCircleRadius, shaftRadius, addendum,
 	     dedendum, gearThickness, toothTipThickness, 0.25f, look,
@@ -148,7 +148,7 @@ public class SpurGearThinBody extends SpurGear {
     public SpurGearThinBody(int toothCount, float pitchCircleRadius,
 			    float shaftRadius, float addendum, float dedendum,
 			    float gearThickness, float toothTipThickness,
-			    float toothToValleyAngleRatio, Appearance look,
+			    float toothToValleyAngleRatio, ShaderAppearance look,
 			    float bodyThickness, float crossSectionWidth) {
 
 	super(toothCount, pitchCircleRadius, addendum, dedendum,

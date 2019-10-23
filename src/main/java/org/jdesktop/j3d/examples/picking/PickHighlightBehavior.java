@@ -44,7 +44,6 @@
 
 package org.jdesktop.j3d.examples.picking;
 
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.Bounds;
 import org.jogamp.java3d.BranchGroup;
 import org.jogamp.java3d.Canvas3D;
@@ -53,12 +52,13 @@ import org.jogamp.java3d.Shape3D;
 import org.jogamp.java3d.utils.picking.PickResult;
 import org.jogamp.java3d.utils.picking.PickTool;
 import org.jogamp.java3d.utils.picking.behaviors.PickMouseBehavior;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.vecmath.Color3f;
 
 public class PickHighlightBehavior extends PickMouseBehavior {
-  Appearance savedAppearance = null;
+	SimpleShaderAppearance savedAppearance = null;
   Shape3D oldShape = null;
-  Appearance highlightAppearance;
+  SimpleShaderAppearance highlightAppearance;
 
   public PickHighlightBehavior(Canvas3D canvas, BranchGroup root,
 			       Bounds bounds) {
@@ -71,7 +71,7 @@ public class PickHighlightBehavior extends PickMouseBehavior {
       Material highlightMaterial = new Material(highlightColor, black,
 						highlightColor, white,
 						80.0f);
-      highlightAppearance = new Appearance();
+      highlightAppearance = new SimpleShaderAppearance();
       highlightAppearance.setMaterial(new Material(highlightColor, black,
 						   highlightColor, white,
 						   80.0f));

@@ -113,10 +113,10 @@ public class RasterTest extends javax.swing.JFrame
 	private Canvas3D createCanvas3DAndUniverse()
 	{
 		// Get the preferred graphics configuration for the default screen
-		GraphicsConfiguration config = SimpleUniverse.getPreferredConfiguration();
+		//GraphicsConfiguration config = SimpleUniverse.getPreferredConfiguration();
 
 		// Create a Canvas3D using the preferred configuration
-		Canvas3D canvas3D = new Canvas3D(config, false);
+		Canvas3D canvas3D = new Canvas3D(false);
 
 		// Create simple universe with view branch
 		univ = new SimpleUniverse(canvas3D);
@@ -131,17 +131,17 @@ public class RasterTest extends javax.swing.JFrame
 		TransformGroup viewTrans = univ.getViewingPlatform().getViewPlatformTransform();
 
 		// Create the rotate behavior node
-		MouseRotate behavior1 = new MouseRotate(viewTrans);
+		MouseRotate behavior1 = new MouseRotate(canvas3D, viewTrans);
 		scene.addChild(behavior1);
 		behavior1.setSchedulingBounds(bounds);
 
 		// Create the zoom behavior node
-		MouseZoom behavior2 = new MouseZoom(viewTrans);
+		MouseZoom behavior2 = new MouseZoom(canvas3D, viewTrans);
 		scene.addChild(behavior2);
 		behavior2.setSchedulingBounds(bounds);
 
 		// Create the translate behavior node
-		MouseTranslate behavior3 = new MouseTranslate(viewTrans);
+		MouseTranslate behavior3 = new MouseTranslate(canvas3D, viewTrans);
 		scene.addChild(behavior3);
 		behavior3.setSchedulingBounds(bounds);
 
@@ -161,7 +161,7 @@ public class RasterTest extends javax.swing.JFrame
 
 		// Create an canvas3D3D and SimpleUniverse; add canvas to drawing panel
 		Canvas3D canvas3D = createCanvas3DAndUniverse();
-		drawingPanel.add(canvas3D, java.awt.BorderLayout.CENTER);
+		canvas3D.addNotify();//drawingPanel.add(canvas3D, java.awt.BorderLayout.CENTER);
 
 		univ.addBranchGraph(scene);
 	}

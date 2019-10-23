@@ -143,10 +143,10 @@ public class ReadRaster extends Applet
 		Raster readRaster = new Raster(new Point3f(0.0f, 0.0f, 0.0f), Raster.RASTER_COLOR, 0, 0, width, height, readImageComponent, null);
 
 		setLayout(new BorderLayout());
-		GraphicsConfiguration config = SimpleUniverse.getPreferredConfiguration();
+		//GraphicsConfiguration config = SimpleUniverse.getPreferredConfiguration();
 
-		Canvas3D c = new myCanvas3D(config, readRaster);
-		add("Center", c);
+		Canvas3D c = new myCanvas3D( readRaster);
+		c.addNotify();//add("Center", c);
 
 		// Create a simple scene and attach it to the virtual universe
 		BufferedImage bImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -183,10 +183,10 @@ public class ReadRaster extends Applet
 		Raster readRaster;
 		GraphicsContext3D gc;
 
-		public myCanvas3D(GraphicsConfiguration graphicsConfiguration, Raster readRaster)
+		public myCanvas3D(Raster readRaster)
 		{
 
-			super(graphicsConfiguration);
+			super();
 			this.readRaster = readRaster;
 			gc = getGraphicsContext3D();
 		}

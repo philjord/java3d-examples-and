@@ -48,7 +48,6 @@ import java.awt.AWTEvent;
 import java.awt.event.MouseEvent;
 import java.util.Iterator;
 
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.Behavior;
 import org.jogamp.java3d.BranchGroup;
 import org.jogamp.java3d.Canvas3D;
@@ -63,6 +62,7 @@ import org.jogamp.java3d.TransformGroup;
 import org.jogamp.java3d.WakeupCriterion;
 import org.jogamp.java3d.WakeupOnAWTEvent;
 import org.jogamp.java3d.WakeupOr;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.vecmath.Color3f;
 import org.jogamp.vecmath.Point3d;
 import org.jogamp.vecmath.Vector3d;
@@ -94,7 +94,7 @@ public class PickDragBehavior extends Behavior {
    Positions positions;
    PickRay pickRay = new PickRay();
    SceneGraphPath sceneGraphPath[];
-   Appearance highlight;
+   SimpleShaderAppearance highlight;
    boolean parallel;
 
    PickDragBehavior(Canvas2D canvas2D, Canvas3D canvas3D, Positions positions, 
@@ -114,7 +114,7 @@ public class PickDragBehavior extends Behavior {
       Color3f black = new Color3f(0.0f, 0.0f, 0.0f);
       Color3f green = new Color3f(0.0f, 1.0f, 0.0f);
 
-      highlight = new Appearance();
+      highlight = new SimpleShaderAppearance();
       highlight.setMaterial(new Material(green, black, green, white, 80.f));
 
       parallel = true;

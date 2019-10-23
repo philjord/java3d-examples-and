@@ -44,22 +44,19 @@
 
 package org.jdesktop.j3d.examples.pure_immediate;
 
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsEnvironment;
 import java.util.Map;
 
 import org.jogamp.java3d.Alpha;
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.BranchGroup;
 import org.jogamp.java3d.Canvas3D;
 import org.jogamp.java3d.DirectionalLight;
-import org.jogamp.java3d.GraphicsConfigTemplate3D;
 import org.jogamp.java3d.GraphicsContext3D;
 import org.jogamp.java3d.Material;
 import org.jogamp.java3d.Shape3D;
 import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.utils.geometry.Cone;
 import org.jogamp.java3d.utils.geometry.Primitive;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.vecmath.Color3f;
 import org.jogamp.vecmath.Vector3f;
@@ -150,8 +147,8 @@ public class PureImmediateStereo extends javax.swing.JFrame implements Runnable 
 					  
 	gc.addLight(light);
 
-	Appearance redApp = new Appearance();
-	Appearance greenApp = new Appearance();
+	SimpleShaderAppearance redApp = new SimpleShaderAppearance();
+	SimpleShaderAppearance greenApp = new SimpleShaderAppearance();
 	Color3f ambientColor = new Color3f(0, 0, 0);
 	Color3f emissiveColor = new Color3f(0, 0, 0);	
 	Color3f diffuseColor =  new Color3f(1, 0, 0);	
@@ -214,13 +211,13 @@ public class PureImmediateStereo extends javax.swing.JFrame implements Runnable 
 
     private void createUniverse() {
 	// Preferred to use Stereo 
-	GraphicsConfigTemplate3D gct = new GraphicsConfigTemplate3D();
-        gct.setStereo(GraphicsConfigTemplate3D.PREFERRED);
+	//GraphicsConfigTemplate3D gct = new GraphicsConfigTemplate3D();
+    //    gct.setStereo(GraphicsConfigTemplate3D.PREFERRED);
 
-        GraphicsConfiguration config = 
-	    GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getBestConfiguration(gct);
+        //GraphicsConfiguration config = 
+	    //GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getBestConfiguration(gct);
 
-        canvas = new Canvas3D(config);
+        canvas = new Canvas3D();
 	Map map = canvas.queryProperties();
 
 	stereoSupport = canvas.getStereoAvailable();
@@ -266,7 +263,7 @@ public class PureImmediateStereo extends javax.swing.JFrame implements Runnable 
 
 	// Create Canvas3D and SimpleUniverse; add canvas to drawing panel
 	createUniverse();
-	drawingPanel.add(canvas, java.awt.BorderLayout.CENTER);
+	canvas.addNotify();//drawingPanel.add(canvas, java.awt.BorderLayout.CENTER);
     }
 
     // ----------------------------------------------------------------

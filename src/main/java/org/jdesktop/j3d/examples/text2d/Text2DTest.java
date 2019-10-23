@@ -47,7 +47,6 @@ package org.jdesktop.j3d.examples.text2d;
 import java.applet.Applet;
 import java.awt.BorderLayout;
 import java.awt.Font;
-import java.awt.GraphicsConfiguration;
 
 import org.jogamp.java3d.Alpha;
 import org.jogamp.java3d.Appearance;
@@ -166,20 +165,21 @@ public class Text2DTest extends Applet {
     public Text2DTest() {
     }
 
-    public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
-	setLayout(new BorderLayout());
-	GraphicsConfiguration config =
-           SimpleUniverse.getPreferredConfiguration();
-
-        Canvas3D c = new Canvas3D(config);
-	add("Center", c);
-
-	// Create a simple scene and attach it to the virtual universe
-	BranchGroup scene = createSceneGraph();
-	u = new SimpleUniverse(c);
-	MoverBehavior navigator =
-	   new MoverBehavior(u.getViewingPlatform().getViewPlatformTransform());
-	scene.addChild(navigator);
+    public void init() {
+    	System.setProperty("sun.awt.noerasebackground", "true"); 
+		setLayout(new BorderLayout());
+		//GraphicsConfiguration config =
+	    //       SimpleUniverse.getPreferredConfiguration();
+	
+	    Canvas3D c = new Canvas3D();
+		c.addNotify();//add("Center", c);
+	
+		// Create a simple scene and attach it to the virtual universe
+		BranchGroup scene = createSceneGraph();
+		u = new SimpleUniverse(c);
+		MoverBehavior navigator =
+		   new MoverBehavior(u.getViewingPlatform().getViewPlatformTransform());
+		scene.addChild(navigator);
 
         // Have Java 3D perform optimizations on this scene graph.
         scene.compile();

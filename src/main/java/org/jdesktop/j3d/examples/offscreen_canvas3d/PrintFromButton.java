@@ -122,11 +122,11 @@ public class PrintFromButton extends javax.swing.JFrame {
 
     private OnScreenCanvas3D createOnScreenCanvasAndUniverse() {
         // Get the preferred graphics configuration for the default screen
-	GraphicsConfiguration config =
-	    SimpleUniverse.getPreferredConfiguration();
+	//GraphicsConfiguration config =
+	//    SimpleUniverse.getPreferredConfiguration();
 
         // Create a Canvas3D using the preferred configuration
-	OnScreenCanvas3D onScrCanvas = new OnScreenCanvas3D(config, false);
+	OnScreenCanvas3D onScrCanvas = new OnScreenCanvas3D(false);
 
         // Create simple universe with view branch
 	univ = new SimpleUniverse(onScrCanvas);
@@ -143,15 +143,15 @@ public class PrintFromButton extends javax.swing.JFrame {
 
     private OffScreenCanvas3D createOffScreenCanvas() {
 	// request an offscreen Canvas3D with a single buffer configuration
-	GraphicsConfigTemplate3D template = new GraphicsConfigTemplate3D();
-	template.setDoubleBuffer(GraphicsConfigTemplate3D.UNNECESSARY);
-	GraphicsConfiguration gc = 
-                GraphicsEnvironment.getLocalGraphicsEnvironment().
-                getDefaultScreenDevice().getBestConfiguration(template);
+	//GraphicsConfigTemplate3D template = new GraphicsConfigTemplate3D();
+	//template.setDoubleBuffer(GraphicsConfigTemplate3D.UNNECESSARY);
+	//GraphicsConfiguration gc = 
+     //           GraphicsEnvironment.getLocalGraphicsEnvironment().
+     //           getDefaultScreenDevice().getBestConfiguration(template);
 
         // Create a offscreen Canvas3D using the single buffer configuration.
         OffScreenCanvas3D offScrCanvas = 
-                new OffScreenCanvas3D(gc, true, drawRaster);
+                new OffScreenCanvas3D(true, drawRaster);
 
         return offScrCanvas;
     }
@@ -169,7 +169,7 @@ public class PrintFromButton extends javax.swing.JFrame {
         
         // Create an OnScreenCanvas3D and SimpleUniverse; add canvas to drawing panel
         OnScreenCanvas3D onScreenCanvas = createOnScreenCanvasAndUniverse();
-        drawingPanel.add(onScreenCanvas, java.awt.BorderLayout.CENTER);	
+        onScreenCanvas.addNotify();//drawingPanel.add(onScreenCanvas, java.awt.BorderLayout.CENTER);	
 
 	// Creante an OffScreenCanvas3D
         offScreenCanvas = createOffScreenCanvas();

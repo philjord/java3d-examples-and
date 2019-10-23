@@ -74,6 +74,7 @@ import org.jogamp.java3d.SpotLight;
 import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.TransformGroup;
 import org.jogamp.java3d.utils.geometry.Sphere;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.java3d.utils.shader.StringIO;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.vecmath.Color3f;
@@ -238,7 +239,7 @@ public class PhongShadingGLSL extends javax.swing.JFrame {
 //        ColoringAttributes caL2 = new ColoringAttributes();
         caL1.setColor(lColor1);
 //        caL2.setColor(lColor2);
-        Appearance appL1 = new Appearance();
+        SimpleShaderAppearance appL1 = new SimpleShaderAppearance();
 //        Appearance appL2 = new Appearance();
         appL1.setColoringAttributes(caL1);
 //        appL2.setColoringAttributes(caL2);
@@ -323,10 +324,10 @@ public class PhongShadingGLSL extends javax.swing.JFrame {
     }
 
     private Canvas3D initScene() {
-        GraphicsConfiguration config =
-            SimpleUniverse.getPreferredConfiguration();
+        //GraphicsConfiguration config =
+        //    SimpleUniverse.getPreferredConfiguration();
 
-        Canvas3D c = new Canvas3D(config);
+        Canvas3D c = new Canvas3D();
 
         univ = new SimpleUniverse(c);
 
@@ -360,7 +361,7 @@ public class PhongShadingGLSL extends javax.swing.JFrame {
 
         // Create the scene and add the Canvas3D to the drawing panel
         Canvas3D c = initScene();
-        drawingPanel.add(c, java.awt.BorderLayout.CENTER);
+        c.addNotify();//drawingPanel.add(c, java.awt.BorderLayout.CENTER);
     }
 
 

@@ -158,11 +158,11 @@ public class ObjLoad extends javax.swing.JFrame {
     
     private Canvas3D createUniverse() {
 	// Get the preferred graphics configuration for the default screen
-	GraphicsConfiguration config =
-	    SimpleUniverse.getPreferredConfiguration();
+	//GraphicsConfiguration config =
+	//    SimpleUniverse.getPreferredConfiguration();
 
 	// Create a Canvas3D using the preferred configuration
-	Canvas3D canvas3d = new Canvas3D(config);
+	Canvas3D canvas3d = new Canvas3D();
 
 	// Create simple universe with view branch
 	univ = new SimpleUniverse(canvas3d);
@@ -201,12 +201,12 @@ public class ObjLoad extends javax.swing.JFrame {
 	// objects in the scene can be viewed.
 	viewingPlatform.setNominalViewingTransform();
 
-	if (!spin) {
+	/*if (!spin) {
             OrbitBehavior orbit = new OrbitBehavior(canvas3d,
 						    OrbitBehavior.REVERSE_ALL);
             orbit.setSchedulingBounds(bounds);
             viewingPlatform.setViewPlatformBehavior(orbit);	    
-	}        
+	}  */      
         
         // Ensure at least 5 msec per frame (i.e., < 200Hz)
 	univ.getViewer().getView().setMinimumFrameCycleTime(5);
@@ -278,7 +278,7 @@ public class ObjLoad extends javax.swing.JFrame {
 
 	// Create Canvas3D and SimpleUniverse; add canvas to drawing panel
 	Canvas3D c = createUniverse();
-	drawingPanel.add(c, java.awt.BorderLayout.CENTER);
+	c.addNotify();//drawingPanel.add(c, java.awt.BorderLayout.CENTER);
 
 	// Create the content branch and add it to the universe
 	scene = createSceneGraph();

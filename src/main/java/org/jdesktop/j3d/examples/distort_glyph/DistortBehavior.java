@@ -114,7 +114,6 @@ public class DistortBehavior extends Behavior {
         }
 
         // make a copy of the object's original appearance
-        m_Appearance = new Appearance();
         m_Appearance = (Appearance) m_Shape3D.getAppearance().cloneNodeComponent(true);
 
         // allocate an array for the model coordinates

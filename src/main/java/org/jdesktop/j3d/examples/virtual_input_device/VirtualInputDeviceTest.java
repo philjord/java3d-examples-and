@@ -106,31 +106,31 @@ public class VirtualInputDeviceTest extends Applet {
         InputDevice device = new VirtualInputDevice( args );
 
         // now create the VirtualInputDeviceTest Canvas
-	setLayout(new BorderLayout());
-        GraphicsConfiguration config =
-           SimpleUniverse.getPreferredConfiguration();
+        setLayout(new BorderLayout());
+        //GraphicsConfiguration config =
+        //   SimpleUniverse.getPreferredConfiguration();
 
-        Canvas3D c = new Canvas3D(config);
-	add("Center", c);
-
-	// Create a simple scene and attach it to the virtual universe
-	BranchGroup scene = createSceneGraph();
-	u = new SimpleUniverse(c);
+        Canvas3D c = new Canvas3D();
+		c.addNotify();//add("Center", c);
+	
+		// Create a simple scene and attach it to the virtual universe
+		BranchGroup scene = createSceneGraph();
+		u = new SimpleUniverse(c);
 
         // The InputDevice must be initialized before registering it 
         // with the PhysicalEnvironment object.
         device.initialize();
 
-	// Register the VirtualInputDevice with Java 3D
-	u.getViewer().getPhysicalEnvironment().addInputDevice( device );
-
-	TransformGroup viewTrans = 
-                        u.getViewingPlatform().getViewPlatformTransform();
-	SensorBehavior s = new SensorBehavior( viewTrans, device.getSensor(0) );
-	s.setSchedulingBounds( new BoundingSphere
-                       ( new Point3d(0.0,0.0,0.0), Float.MAX_VALUE ));
-	scene.addChild( s );
-	u.addBranchGraph(scene);
+		// Register the VirtualInputDevice with Java 3D
+		u.getViewer().getPhysicalEnvironment().addInputDevice( device );
+	
+		TransformGroup viewTrans = 
+	                        u.getViewingPlatform().getViewPlatformTransform();
+		SensorBehavior s = new SensorBehavior( viewTrans, device.getSensor(0) );
+		s.setSchedulingBounds( new BoundingSphere
+	                       ( new Point3d(0.0,0.0,0.0), Float.MAX_VALUE ));
+		scene.addChild( s );
+		u.addBranchGraph(scene);
     }
 
     public void destroy() {

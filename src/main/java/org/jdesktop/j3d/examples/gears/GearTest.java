@@ -44,11 +44,8 @@
 
 package org.jdesktop.j3d.examples.gears;
 
-import java.awt.GraphicsConfiguration;
-
 import org.jogamp.java3d.Alpha;
 import org.jogamp.java3d.AmbientLight;
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.Background;
 import org.jogamp.java3d.BoundingSphere;
 import org.jogamp.java3d.BranchGroup;
@@ -58,6 +55,7 @@ import org.jogamp.java3d.Material;
 import org.jogamp.java3d.RotationInterpolator;
 import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.TransformGroup;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.vecmath.Color3f;
 import org.jogamp.vecmath.Point3d;
@@ -124,7 +122,7 @@ public class GearTest extends javax.swing.JFrame {
 	objScale.addChild(objTrans);
 
 	// Create an Appearance.
-	Appearance look = new Appearance();
+	SimpleShaderAppearance look = new SimpleShaderAppearance();
 	Color3f objColor = new Color3f(0.5f, 0.5f, 0.6f);
 	Color3f black = new Color3f(0.0f, 0.0f, 0.0f);
 	Color3f white = new Color3f(1.0f, 1.0f, 1.0f);
@@ -158,11 +156,11 @@ public class GearTest extends javax.swing.JFrame {
 
     private Canvas3D createUniverse() {
 	// Get the preferred graphics configuration for the default screen
-	GraphicsConfiguration config =
-	    SimpleUniverse.getPreferredConfiguration();
+	//GraphicsConfiguration config =
+	 //   SimpleUniverse.getPreferredConfiguration();
 
 	// Create a Canvas3D using the preferred configuration
-	Canvas3D c = new Canvas3D(config);
+	Canvas3D c = new Canvas3D();
 
 	// Create simple universe with view branch
 	univ = new SimpleUniverse(c);
@@ -209,7 +207,8 @@ public class GearTest extends javax.swing.JFrame {
 
 	// Create Canvas3D and SimpleUniverse; add canvas to drawing panel
 	Canvas3D c = createUniverse();
-	drawingPanel.add(c, java.awt.BorderLayout.CENTER);
+	//REPLACE add with addNotify()
+	c.addNotify();//drawingPanel.add(c, java.awt.BorderLayout.CENTER);
 
 	// Create the content branch and add it to the universe
 	scene = createSceneGraph();

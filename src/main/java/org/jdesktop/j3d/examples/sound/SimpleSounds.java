@@ -203,12 +203,12 @@ public class SimpleSounds extends Applet {
 
     public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
 
-	setLayout(new BorderLayout());
-        GraphicsConfiguration config =
-           SimpleUniverse.getPreferredConfiguration();
+		setLayout(new BorderLayout());
+        //GraphicsConfiguration config =
+        //   SimpleUniverse.getPreferredConfiguration();
 
-        Canvas3D c = new Canvas3D(config);
-	add("Center", c);
+        Canvas3D c = new Canvas3D();
+        c.addNotify();//add("Center", c);
 
         url[0] = Resources.getResource("main/resources/audio/techno_machine.au");
         if (url == null) {

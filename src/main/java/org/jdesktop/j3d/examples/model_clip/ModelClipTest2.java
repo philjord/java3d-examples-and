@@ -46,10 +46,8 @@ package org.jdesktop.j3d.examples.model_clip;
 
 import java.applet.Applet;
 import java.awt.BorderLayout;
-import java.awt.GraphicsConfiguration;
 
 import org.jogamp.java3d.AmbientLight;
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.BoundingSphere;
 import org.jogamp.java3d.BranchGroup;
 import org.jogamp.java3d.Canvas3D;
@@ -64,6 +62,7 @@ import org.jogamp.java3d.utils.behaviors.mouse.MouseRotate;
 import org.jogamp.java3d.utils.behaviors.mouse.MouseZoom;
 import org.jogamp.java3d.utils.geometry.Box;
 import org.jogamp.java3d.utils.geometry.Cylinder;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.vecmath.AxisAngle4f;
 import org.jogamp.vecmath.Color3f;
@@ -80,7 +79,7 @@ public class ModelClipTest2 extends Applet {
 
     private SimpleUniverse u;
     
-  public BranchGroup createSceneGraph()
+  public BranchGroup createSceneGraph(Canvas3D c)
   {
     // Create the root of the branch graph
     BranchGroup objRoot = new BranchGroup();
@@ -126,7 +125,7 @@ public class ModelClipTest2 extends Applet {
     //Create a cylinder
     PolygonAttributes attr = new PolygonAttributes();
     attr.setCullFace(PolygonAttributes.CULL_NONE);
-    Appearance ap = new Appearance();
+    SimpleShaderAppearance ap = new SimpleShaderAppearance();
     Material mat = new Material();
     mat.setLightingEnable(true);
     ap.setMaterial(mat);
@@ -148,12 +147,12 @@ public class ModelClipTest2 extends Applet {
     objRot.addChild(objTrans);
 
     // Create the rotate behavior node
-    MouseRotate behavior = new MouseRotate(objTrans);
+    MouseRotate behavior = new MouseRotate(c, objTrans);
     objTrans.addChild(behavior);
     behavior.setSchedulingBounds(bounds);
     
     // Create the zoom behavior node
-    MouseZoom behavior2 = new MouseZoom(objTrans);
+    MouseZoom behavior2 = new MouseZoom(c, objTrans);
     objTrans.addChild(behavior2);
     behavior2.setSchedulingBounds(bounds);
     
@@ -179,14 +178,14 @@ public class ModelClipTest2 extends Applet {
 
     public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
 	setLayout(new BorderLayout());
-	GraphicsConfiguration config =
-	    SimpleUniverse.getPreferredConfiguration();
+	//GraphicsConfiguration config =
+	//    SimpleUniverse.getPreferredConfiguration();
 
-	Canvas3D c = new Canvas3D(config);
-	add("Center", c);
+	Canvas3D c = new Canvas3D();
+	c.addNotify();//add("Center", c);
 	
 	// Create a simple scene and attach it to the virtual universe
-	BranchGroup scene = createSceneGraph();
+	BranchGroup scene = createSceneGraph(c);
 	u = new SimpleUniverse(c);
 
 	// This will move the ViewPlatform back a bit so the

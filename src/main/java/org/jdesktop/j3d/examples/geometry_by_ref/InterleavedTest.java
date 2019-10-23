@@ -82,6 +82,7 @@ import org.jogamp.java3d.TriangleStripArray;
 import org.jogamp.java3d.utils.applet.MainFrame;
 import org.jogamp.java3d.utils.behaviors.vp.OrbitBehavior;
 import org.jogamp.java3d.utils.image.TextureLoader;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.java3d.utils.universe.ViewingPlatform;
 import org.jogamp.vecmath.Color3f;
@@ -95,7 +96,7 @@ public class InterleavedTest extends JApplet implements ActionListener {
     RenderingAttributes ra;
     ColoringAttributes ca;
     Material mat;			   
-    Appearance app;			   
+    SimpleShaderAppearance app;			   
     JComboBox geomType;
     JCheckBox transparency;
     JCheckBox textureBox;
@@ -225,18 +226,18 @@ public class InterleavedTest extends JApplet implements ActionListener {
 
     private SimpleUniverse u;
 
-   BranchGroup createSceneGraph() {
-	BranchGroup objRoot = new BranchGroup();
-
-	// Set up attributes to render lines
-        app = new Appearance();
-	app.setCapability(Appearance.ALLOW_TEXTURE_UNIT_STATE_WRITE);
+    BranchGroup createSceneGraph() {
+		BranchGroup objRoot = new BranchGroup();
 	
-	transp = new TransparencyAttributes();
-	transp.setTransparency(0.5f);
-	transp.setCapability(TransparencyAttributes.ALLOW_MODE_WRITE);
-	transp.setTransparencyMode(TransparencyAttributes.NONE);
-	app.setTransparencyAttributes(transp);
+		// Set up attributes to render lines
+	    app = new SimpleShaderAppearance();
+		app.setCapability(Appearance.ALLOW_TEXTURE_UNIT_STATE_WRITE);
+		
+		transp = new TransparencyAttributes();
+		transp.setTransparency(0.5f);
+		transp.setCapability(TransparencyAttributes.ALLOW_MODE_WRITE);
+		transp.setTransparencyMode(TransparencyAttributes.NONE);
+		app.setTransparencyAttributes(transp);
 
         // load textures
         TextureAttributes texAttr1 = new TextureAttributes();
@@ -361,26 +362,26 @@ public class InterleavedTest extends JApplet implements ActionListener {
 
 	Container contentPane = getContentPane();
 	
-        Canvas3D c = new Canvas3D(SimpleUniverse.getPreferredConfiguration());
-        contentPane.add("Center", c);
+        Canvas3D c = new Canvas3D();
+        c.addNotify();//contentPane.add("Center", c);
 
         BranchGroup scene = createSceneGraph();
         // SimpleUniverse is a Convenience Utility class
         u = new SimpleUniverse(c);
 
-	// add mouse behaviors to the viewingPlatform
-	ViewingPlatform viewingPlatform = u.getViewingPlatform();
+        // add mouse behaviors to the viewingPlatform
+        ViewingPlatform viewingPlatform = u.getViewingPlatform();
 
         // This will move the ViewPlatform back a bit so the
         // objects in the scene can be viewed.
         viewingPlatform.setNominalViewingTransform();
 
-	// add Orbit behavior to the viewing platform
-	OrbitBehavior orbit = new OrbitBehavior(c, OrbitBehavior.REVERSE_ALL);
-	BoundingSphere bounds =
-	    new BoundingSphere(new Point3d(0.0, 0.0, 0.0), 100.0);
-	orbit.setSchedulingBounds(bounds);
-	viewingPlatform.setViewPlatformBehavior(orbit);
+        /*// add Orbit behavior to the viewing platform
+		OrbitBehavior orbit = new OrbitBehavior(c, OrbitBehavior.REVERSE_ALL);
+		BoundingSphere bounds =
+		    new BoundingSphere(new Point3d(0.0, 0.0, 0.0), 100.0);
+		orbit.setSchedulingBounds(bounds);
+		viewingPlatform.setViewPlatformBehavior(orbit);*/
 	
         u.addBranchGraph(scene);
 

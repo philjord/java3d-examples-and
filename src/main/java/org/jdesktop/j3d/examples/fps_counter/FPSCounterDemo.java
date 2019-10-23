@@ -113,11 +113,11 @@ public class FPSCounterDemo extends javax.swing.JFrame {
 
     private Canvas3D createUniverse() {
 	// Get the preferred graphics configuration for the default screen
-	GraphicsConfiguration config =
-	    SimpleUniverse.getPreferredConfiguration();
+	//GraphicsConfiguration config =
+	//    SimpleUniverse.getPreferredConfiguration();
 
 	// Create a Canvas3D using the preferred configuration
-	Canvas3D c = new Canvas3D(config);
+	Canvas3D c = new Canvas3D();
 
 	// Create simple universe with view branch
 	univ = new SimpleUniverse(c);
@@ -138,7 +138,7 @@ public class FPSCounterDemo extends javax.swing.JFrame {
         
         // Create Canvas3D and SimpleUniverse; add canvas to drawing panel
         Canvas3D c = createUniverse();
-        drawingPanel.add(c, java.awt.BorderLayout.CENTER);
+        c.addNotify();//drawingPanel.add(c, java.awt.BorderLayout.CENTER);
         
         // Create the content branch and add it to the universe
         scene = createSceneGraph();

@@ -47,10 +47,10 @@ package org.jdesktop.j3d.examples.texture_by_ref;
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
 
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.Behavior;
 import org.jogamp.java3d.ImageComponent;
 import org.jogamp.java3d.ImageComponent2D;
+import org.jogamp.java3d.ShaderAppearance;
 import org.jogamp.java3d.Texture2D;
 import org.jogamp.java3d.WakeupCriterion;
 import org.jogamp.java3d.WakeupOnElapsedFrames;
@@ -68,7 +68,7 @@ public class AnimateTexturesBehavior extends Behavior {
 
   // the target
   private Texture2D texture;
-  private Appearance appearance;
+  private ShaderAppearance appearance;
 
   // the wakeup criterion
   private WakeupCriterion wakeupC;
@@ -90,7 +90,7 @@ public class AnimateTexturesBehavior extends Behavior {
   // initialize the images
   public AnimateTexturesBehavior(Texture2D texP, 
      				 java.net.URL[] fnames,
-				 Appearance appP,
+     				ShaderAppearance appP,
 				 TextureByReference applet) {
     int size = fnames.length;
     images = new ImageComponent2D[size];

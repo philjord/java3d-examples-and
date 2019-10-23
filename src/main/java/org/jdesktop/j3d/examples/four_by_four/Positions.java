@@ -46,7 +46,6 @@ package org.jdesktop.j3d.examples.four_by_four;
 
 import java.util.BitSet;
 
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.Group;
 import org.jogamp.java3d.Material;
 import org.jogamp.java3d.Shape3D;
@@ -54,6 +53,7 @@ import org.jogamp.java3d.Switch;
 import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.TransformGroup;
 import org.jogamp.java3d.utils.geometry.Sphere;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.vecmath.Color3f;
 import org.jogamp.vecmath.Vector3f;
 
@@ -84,10 +84,10 @@ public class Positions extends Object {
    private Material blueMat;
    private Material yellowMat;
    private Material whiteMat;
-   private Appearance redApp;
-   private Appearance blueApp;
-   private Appearance yellowApp;
-   private Appearance whiteApp;
+   private SimpleShaderAppearance redApp;
+   private SimpleShaderAppearance blueApp;
+   private SimpleShaderAppearance yellowApp;
+   private SimpleShaderAppearance whiteApp;
    private Board board;
    private Sphere posSphere[];
    private BigCube cube[];
@@ -111,25 +111,25 @@ public class Positions extends Object {
       // Create the red appearance node
       redMat= new Material(ambRed, black, red, specular, 100.f);
       redMat.setLightingEnable(true);
-      redApp = new Appearance();
+      redApp = new SimpleShaderAppearance();
       redApp.setMaterial(redMat);
 
       // Create the blue appearance node
       blueMat= new Material(ambBlue, black, blue, specular, 100.f);
       blueMat.setLightingEnable(true);
-      blueApp = new Appearance();
+      blueApp = new SimpleShaderAppearance();
       blueApp.setMaterial(blueMat);
 
       // Create the yellow appearance node
       yellowMat= new Material(ambYellow, black, yellow, specular, 100.f);
       yellowMat.setLightingEnable(true);
-      yellowApp = new Appearance();
+      yellowApp = new SimpleShaderAppearance();
       yellowApp.setMaterial(yellowMat);
 
       // Create the white appearance node
       whiteMat= new Material(ambWhite, black, white, specular, 100.f);
       whiteMat.setLightingEnable(true);
-      whiteApp = new Appearance();
+      whiteApp = new SimpleShaderAppearance();
       whiteApp.setMaterial(whiteMat);
 
       // Load the point array with the offset (coordinates) for each of 

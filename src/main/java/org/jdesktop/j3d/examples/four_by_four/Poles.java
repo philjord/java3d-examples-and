@@ -44,8 +44,8 @@
 
 package org.jdesktop.j3d.examples.four_by_four;
 
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.Group;
+import org.jogamp.java3d.ShaderAppearance;
 
 /**
  * Class:       Poles
@@ -59,7 +59,7 @@ public class Poles extends Object {
 
    private Group group;
 
-   public Poles(Appearance appearance) {
+   public Poles(ShaderAppearance appearance) {
       float x = -30.0f;
       float z = -30.0f;
       group = new Group();

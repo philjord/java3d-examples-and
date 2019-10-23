@@ -75,6 +75,7 @@ import org.jogamp.java3d.SpotLight;
 import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.TransformGroup;
 import org.jogamp.java3d.utils.geometry.Sphere;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.java3d.utils.shader.StringIO;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.vecmath.Color3f;
@@ -189,8 +190,8 @@ public class SphereGLSL extends javax.swing.JFrame {
 	ColoringAttributes caL2 = new ColoringAttributes();
 	caL1.setColor(lColor1);
 	caL2.setColor(lColor2);
-	Appearance appL1 = new Appearance();
-	Appearance appL2 = new Appearance();
+	SimpleShaderAppearance appL1 = new SimpleShaderAppearance();
+	SimpleShaderAppearance appL2 = new SimpleShaderAppearance();
 	appL1.setColoringAttributes(caL1);
 	appL2.setColoringAttributes(caL2);
 	l1Trans.addChild(new Sphere(0.05f, appL1));
@@ -296,11 +297,11 @@ public class SphereGLSL extends javax.swing.JFrame {
     
     private Canvas3D createUniverse() {
 	// Get the preferred graphics configuration for the default screen
-	GraphicsConfiguration config =
-	    SimpleUniverse.getPreferredConfiguration();
+	//GraphicsConfiguration config =
+	 //   SimpleUniverse.getPreferredConfiguration();
 
 	// Create a Canvas3D using the preferred configuration
-	Canvas3D canvas3d = new Canvas3D(config);
+	Canvas3D canvas3d = new Canvas3D();
 
 	// Create simple universe with view branch
 	univ = new SimpleUniverse(canvas3d);
@@ -338,7 +339,7 @@ public class SphereGLSL extends javax.swing.JFrame {
         
         // Create Canvas3D and SimpleUniverse; add canvas to drawing panel
         Canvas3D c = createUniverse();
-        drawingPanel.add(c, java.awt.BorderLayout.CENTER);
+        c.addNotify();//drawingPanel.add(c, java.awt.BorderLayout.CENTER);
         
 	// Create the content branch and add it to the universe
 	scene = createSceneGraph();

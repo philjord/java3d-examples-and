@@ -44,8 +44,8 @@
 
 package org.jdesktop.j3d.examples.gears;
 
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.GeometryArray;
+import org.jogamp.java3d.ShaderAppearance;
 import org.jogamp.java3d.Shape3D;
 import org.jogamp.java3d.TransformGroup;
 import org.jogamp.java3d.TriangleFanArray;
@@ -67,7 +67,7 @@ public class Shaft extends TransformGroup {
      * @param look the Appearance to associate with this shaft
      */
     public Shaft(float radius, float length, int segmentCount,
-		 Appearance look) {
+                 ShaderAppearance look) {
 	// The direction of the ray from the shaft's center
 	float xDirection, yDirection;
 	float xShaft, yShaft;

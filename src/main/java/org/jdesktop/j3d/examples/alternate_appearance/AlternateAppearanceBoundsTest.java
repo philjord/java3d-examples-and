@@ -59,7 +59,6 @@ import javax.swing.border.TitledBorder;
 
 import org.jogamp.java3d.AlternateAppearance;
 import org.jogamp.java3d.AmbientLight;
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.BoundingLeaf;
 import org.jogamp.java3d.BoundingSphere;
 import org.jogamp.java3d.Bounds;
@@ -70,6 +69,7 @@ import org.jogamp.java3d.Group;
 import org.jogamp.java3d.Material;
 import org.jogamp.java3d.Shape3D;
 import org.jogamp.java3d.utils.applet.MainFrame;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.vecmath.Color3f;
 import org.jogamp.vecmath.Point3d;
@@ -80,7 +80,7 @@ implements ActionListener {
 
 
     Material mat1, altMat;			   
-    Appearance app, otherApp;			   
+    SimpleShaderAppearance app, otherApp;			   
     JComboBox altAppMaterialColor;
     JComboBox appMaterialColor;
     JCheckBox useBoundingLeaf;
@@ -125,8 +125,8 @@ implements ActionListener {
     public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
 	Container contentPane = getContentPane();
 	
-        Canvas3D c = new Canvas3D(SimpleUniverse.getPreferredConfiguration());
-        contentPane.add("Center", c);
+        Canvas3D c = new Canvas3D();
+        //contentPane.add("Center", c);
 
         BranchGroup scene = createSceneGraph();
         // SimpleUniverse is a Convenience Utility class
@@ -157,7 +157,7 @@ implements ActionListener {
 	BranchGroup objRoot = new BranchGroup();
 
 	// Create an alternate appearance
-	otherApp = new Appearance();
+	otherApp = new SimpleShaderAppearance();
 	altMat = new Material();
 	altMat.setCapability(Material.ALLOW_COMPONENT_WRITE);
 	altMat.setDiffuseColor( new Color3f( 0.0f, 1.0f, 0.0f ) );
@@ -171,7 +171,7 @@ implements ActionListener {
 	objRoot.addChild(altApp);
 	
 	// Build foreground geometry
-	Appearance app1 = new Appearance();
+	SimpleShaderAppearance app1 = new SimpleShaderAppearance();
 	mat1 = new Material();
 	mat1.setCapability(Material.ALLOW_COMPONENT_WRITE);
 	mat1.setDiffuseColor( new Color3f( 1.0f, 0.0f, 0.0f ) );

@@ -49,7 +49,6 @@ import java.awt.GraphicsConfiguration;
 import org.jdesktop.j3d.examples.Resources;
 import org.jogamp.java3d.Alpha;
 import org.jogamp.java3d.AmbientLight;
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.Background;
 import org.jogamp.java3d.BoundingSphere;
 import org.jogamp.java3d.BranchGroup;
@@ -67,6 +66,7 @@ import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.TransformGroup;
 import org.jogamp.java3d.TransparencyAttributes;
 import org.jogamp.java3d.utils.image.TextureLoader;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.vecmath.Color3f;
 import org.jogamp.vecmath.Point3d;
@@ -110,7 +110,7 @@ public class AppearanceTest extends javax.swing.JFrame {
 	// into the scene graph.
 
 	int row, col;
-	Appearance[][] app = new Appearance[3][3];
+	SimpleShaderAppearance[][] app = new SimpleShaderAppearance[3][3];
 
 	for (row = 0; row < 3; row++)
 	    for (col = 0; col < 3; col++)
@@ -130,8 +130,8 @@ public class AppearanceTest extends javax.swing.JFrame {
 	return objRoot;
     }
 
-    private Appearance createAppearance(int idx) {
-	Appearance app = new Appearance();
+    private SimpleShaderAppearance createAppearance(int idx) {
+    	SimpleShaderAppearance app = new SimpleShaderAppearance();
 
 	// Globally used colors
 	Color3f black = new Color3f(0.0f, 0.0f, 0.0f);
@@ -278,7 +278,7 @@ public class AppearanceTest extends javax.swing.JFrame {
     }
 
 
-    private Group createObject(Appearance app, double scale,
+    private Group createObject(SimpleShaderAppearance app, double scale,
 			       double xpos, double ypos) {
 
 	// Create a transform group node to scale and position the object.
@@ -326,11 +326,11 @@ public class AppearanceTest extends javax.swing.JFrame {
 
     private Canvas3D createUniverse() {
 	// Get the preferred graphics configuration for the default screen
-	GraphicsConfiguration config =
-	    SimpleUniverse.getPreferredConfiguration();
+	//GraphicsConfiguration config =
+	//    SimpleUniverse.getPreferredConfiguration();
 
 	// Create a Canvas3D using the preferred configuration
-	Canvas3D c = new Canvas3D(config);
+	Canvas3D c = new Canvas3D();
 
 	// Create simple universe with view branch
 	univ = new SimpleUniverse(c);
@@ -373,7 +373,7 @@ public class AppearanceTest extends javax.swing.JFrame {
 
 	// Create Canvas3D and SimpleUniverse; add canvas to drawing panel
 	Canvas3D c = createUniverse();
-	drawingPanel.add(c, java.awt.BorderLayout.CENTER);
+	c.addNotify();//drawingPanel.add(c, java.awt.BorderLayout.CENTER);
 
 	// Create the content branch and add it to the universe
 	scene = createSceneGraph();

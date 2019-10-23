@@ -58,7 +58,6 @@ import javax.swing.JRadioButton;
 import javax.swing.border.BevelBorder;
 
 import org.jogamp.java3d.Alpha;
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.BoundingSphere;
 import org.jogamp.java3d.BranchGroup;
 import org.jogamp.java3d.Canvas3D;
@@ -67,7 +66,6 @@ import org.jogamp.java3d.Geometry;
 import org.jogamp.java3d.GeometryArray;
 import org.jogamp.java3d.Group;
 import org.jogamp.java3d.Material;
-import org.jogamp.java3d.Morph;
 import org.jogamp.java3d.PickInfo;
 import org.jogamp.java3d.PointAttributes;
 import org.jogamp.java3d.QuadArray;
@@ -76,9 +74,11 @@ import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.TransformGroup;
 import org.jogamp.java3d.View;
 import org.jogamp.java3d.utils.applet.MainFrame;
+import org.jogamp.java3d.utils.geometry.GeometryInfo;
 import org.jogamp.java3d.utils.pickfast.behaviors.PickRotateBehavior;
 import org.jogamp.java3d.utils.pickfast.behaviors.PickTranslateBehavior;
 import org.jogamp.java3d.utils.pickfast.behaviors.PickZoomBehavior;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.vecmath.Color3f;
 import org.jogamp.vecmath.Point3d;
@@ -87,7 +87,7 @@ import org.jogamp.vecmath.Vector3f;
 
 /**
  * PickTest shows how to use the Picking utilities on various GeometryArray
- * subclasses and Morph object.
+ * subclasses .
  * Type of Geometry      : CompressedGeometry ( GullCG.java )
  *                         IndexedQuadArray ( CubeIQA.java )
  *                         TriangleArray ( TetrahedronTA.java )
@@ -102,15 +102,13 @@ import org.jogamp.vecmath.Vector3f;
  *			   LineStripArray( TetrahedronLSA.java )
  *			   IndexLineStripArray( TetrahedronILSA.java )
  *
- * Morph Object uses :     QuadArray ( ColorCube.java, ColorPyramidDown.java, 
- *				and ColorPyramidUp.java ).
  */
 
 public class PickTest extends Applet implements ActionListener {
   
   private View view = null;
   private QuadArray geomMorph[] = new QuadArray[3];
-  private Morph morph;
+  
 
   private PickRotateBehavior behavior1;
   private PickZoomBehavior   behavior2;
@@ -157,18 +155,9 @@ public class PickTest extends Applet implements ActionListener {
     objRoot.addChild(lgt) ;
 
 
-    // Now create the Alpha object that controls the speed of the
-    // morphing operation.
-    Alpha morphAlpha = new Alpha(-1, Alpha.INCREASING_ENABLE |
-				 Alpha.DECREASING_ENABLE,
-				 0, 0,
-				 4000, 1000, 500,
-				 4000, 1000, 500);
+     
       
-    // Finally, create the morphing behavior
-    MorphingBehavior mBeh = new MorphingBehavior(morphAlpha, morph);  
-    mBeh.setSchedulingBounds(bounds);
-    objRoot.addChild(mBeh);
+    
         
     behavior1 = new PickRotateBehavior(objRoot, canvas, bounds);
     objRoot.addChild(behavior1);
@@ -207,7 +196,7 @@ public class PickTest extends Applet implements ActionListener {
     spinTg.setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
     spinTg.setCapability(TransformGroup.ENABLE_PICK_REPORTING);
  
-    Appearance appearance = new Appearance();
+    SimpleShaderAppearance appearance = new SimpleShaderAppearance();
 
     switch(index) {
     case 0:
@@ -268,10 +257,15 @@ public class PickTest extends Applet implements ActionListener {
     if(index == 8) {
 	m.setLightingEnable(false) ;
 	appearance.setMaterial(m) ;
-	morph = new Morph((GeometryArray[]) geomMorph, appearance);
-	morph.setCapability(Morph.ALLOW_WEIGHTS_READ);
-	morph.setCapability(Morph.ALLOW_WEIGHTS_WRITE);
-	spinTg.addChild(morph); 
+	
+	GeometryArray[] geomMorph2 = new GeometryArray[geomMorph.length];
+	for(int i =0 ; i < geomMorph.length; i++) {
+		GeometryInfo gi = new GeometryInfo(geomMorph[i]);
+		gi.convertToIndexedTriangles();	
+		geomMorph2[i] = gi.getIndexedGeometryArray(true, true, true, true, true);
+	}
+		
+	
     } else {
 	// Geometry picking require this to be set.
 	if (index == 0)
@@ -407,8 +401,8 @@ public class PickTest extends Applet implements ActionListener {
 
     public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
 	setLayout(new BorderLayout());
-	Canvas3D c = new Canvas3D(SimpleUniverse.getPreferredConfiguration());
-	add("Center", c);
+	Canvas3D c = new Canvas3D();//SimpleUniverse.getPreferredConfiguration());
+	c.addNotify();//add("Center", c);
 	
 	JPanel guiPanel = new JPanel();
 	setupGUI(guiPanel);

@@ -49,7 +49,6 @@ import java.awt.Button;
 import java.awt.Choice;
 import java.awt.FlowLayout;
 import java.awt.Frame;
-import java.awt.GraphicsConfiguration;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.ItemSelectable;
@@ -65,7 +64,6 @@ import java.awt.event.ItemListener;
 
 import org.jogamp.java3d.Alpha;
 import org.jogamp.java3d.AmbientLight;
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.Background;
 import org.jogamp.java3d.BoundingSphere;
 import org.jogamp.java3d.BranchGroup;
@@ -79,9 +77,9 @@ import org.jogamp.java3d.TransformGroup;
 import org.jogamp.java3d.utils.applet.MainFrame;
 import org.jogamp.java3d.utils.behaviors.interpolators.KBKeyFrame;
 import org.jogamp.java3d.utils.behaviors.interpolators.KBRotPosScaleSplinePathInterpolator;
-import org.jogamp.java3d.utils.behaviors.vp.OrbitBehavior;
 import org.jogamp.java3d.utils.geometry.Cone;
 import org.jogamp.java3d.utils.geometry.Sphere;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.java3d.utils.universe.ViewingPlatform;
 import org.jogamp.vecmath.Color3f;
@@ -198,12 +196,12 @@ public class SplineAnim extends Applet implements ActionListener,
         viewingPlatform.setNominalViewingTransform();
 
 	// add orbit behavior to the ViewingPlatform
-	OrbitBehavior orbit = new OrbitBehavior(canvas,
+	/*OrbitBehavior orbit = new OrbitBehavior(canvas,
 						OrbitBehavior.REVERSE_ALL);
 	BoundingSphere bounds =
 	    new BoundingSphere(new Point3d(0.0, 0.0, 0.0), 100.0);
 	orbit.setSchedulingBounds(bounds);
-	viewingPlatform.setViewPlatformBehavior(orbit);
+	viewingPlatform.setViewPlatformBehavior(orbit);*/
 	
         u.addBranchGraph(scene);
     }
@@ -272,12 +270,12 @@ public class SplineAnim extends Applet implements ActionListener,
         p.setLayout(gl);
         gbc.gridx = 0;  gbc.gridy = 0;
         gbc.gridwidth = 5;  gbc.gridheight = 5;
-        GraphicsConfiguration config =
-           SimpleUniverse.getPreferredConfiguration();
+        //GraphicsConfiguration config =
+        //   SimpleUniverse.getPreferredConfiguration();
 
-        canvas = new Canvas3D(config);
+        canvas = new Canvas3D();
         canvas.setSize(490,490);
-        p.add(canvas,gbc);
+        canvas.addNotify();//p.add(canvas,gbc);
 
     }
 
@@ -360,7 +358,7 @@ public class SplineAnim extends Applet implements ActionListener,
       sceneTransformGroup.addChild(objTransformGroup);
 
       Material m = new Material(coneColor, eColor, coneColor, sColor, 100.0f);
-      Appearance a = new Appearance();
+      SimpleShaderAppearance a = new SimpleShaderAppearance();
       m.setLightingEnable(true);
       a.setMaterial(m);
       Cone cone = new Cone(0.4f, 1.0f); 
@@ -407,7 +405,7 @@ public class SplineAnim extends Applet implements ActionListener,
       // Create spheres for each knot point's transform group
       ColoringAttributes sphereColorAttr = new ColoringAttributes();
       sphereColorAttr.setColor(sphereColor);
-      Appearance sphereAppearance = new Appearance();
+      SimpleShaderAppearance sphereAppearance = new SimpleShaderAppearance();
       sphereAppearance.setColoringAttributes(sphereColorAttr);
       k0TransformGroup.addChild(new Sphere(0.10f, sphereAppearance));
       k1TransformGroup.addChild(new Sphere(0.10f, sphereAppearance));

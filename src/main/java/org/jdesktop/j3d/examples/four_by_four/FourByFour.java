@@ -71,7 +71,6 @@ import java.net.URL;
 
 import org.jdesktop.j3d.examples.Resources;
 import org.jogamp.java3d.AmbientLight;
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.Background;
 import org.jogamp.java3d.BoundingLeaf;
 import org.jogamp.java3d.BoundingSphere;
@@ -83,6 +82,7 @@ import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.TransformGroup;
 import org.jogamp.java3d.View;
 import org.jogamp.java3d.utils.applet.MainFrame;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.vecmath.Color3f;
 import org.jogamp.vecmath.Point3d;
@@ -312,7 +312,7 @@ public class FourByFour extends Applet implements ActionListener {
       canvas2D.setBuffer(backbuffer2D);
 
       // Create a 3D graphics canvas.
-      canvas3D = new Canvas3D(SimpleUniverse.getPreferredConfiguration());
+      canvas3D = new Canvas3D();
       canvas3D.setSize(width, height);
       canvas3D.setLocation(5, 5);
 
@@ -344,7 +344,7 @@ public class FourByFour extends Applet implements ActionListener {
 
       // Add the 2D and 3D canvases to the container.
       c_container.add(canvas2D);
-      c_container.add(canvas3D);
+      canvas3D.addNotify();//c_container.add(canvas3D);
 
       // Turn off the layout manager, widgets will be sized 
       // and positioned explicitly.
@@ -589,7 +589,7 @@ public class FourByFour extends Applet implements ActionListener {
       Material poleMaterial =
          new Material(ambient, black, diffuse, specular, 110.f);
       poleMaterial.setLightingEnable(true);
-      Appearance poleAppearance = new Appearance();
+      SimpleShaderAppearance poleAppearance = new SimpleShaderAppearance();
       poleAppearance.setMaterial(poleMaterial);
 
       // Create the transform group node

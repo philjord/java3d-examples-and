@@ -51,9 +51,9 @@ public class Canvas3D2D extends Canvas3D
 	private URL bgImage = null;
 	private BufferedImage bufferedImage;
 
-	public Canvas3D2D(GraphicsConfiguration gc)
+	public Canvas3D2D()
 	{
-		super(gc);
+		super();
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })

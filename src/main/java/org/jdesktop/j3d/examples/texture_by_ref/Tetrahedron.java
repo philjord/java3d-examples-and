@@ -44,9 +44,9 @@
 
 package org.jdesktop.j3d.examples.texture_by_ref;
 
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.Shape3D;
 import org.jogamp.java3d.TriangleArray;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.vecmath.Point2f;
 import org.jogamp.vecmath.Point3f;
 import org.jogamp.vecmath.TexCoord2f;
@@ -106,7 +106,7 @@ public class Tetrahedron extends Shape3D {
     }
     this.setCapability(Shape3D.ALLOW_GEOMETRY_READ);
     this.setCapability(Shape3D.ALLOW_GEOMETRY_WRITE);
-    setAppearance(new Appearance());
+    setAppearance(new SimpleShaderAppearance());
   }
 
   // create the geometry by reference and 

@@ -48,14 +48,12 @@ import java.applet.Applet;
 import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Font;
-import java.awt.GraphicsConfiguration;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import org.jogamp.java3d.Alpha;
 import org.jogamp.java3d.AmbientLight;
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.Background;
 import org.jogamp.java3d.BoundingSphere;
 import org.jogamp.java3d.BranchGroup;
@@ -246,11 +244,11 @@ public class Text3DLoad extends Applet implements ActionListener {
 	p.add(button);
 	add("South", p);
 	
-        GraphicsConfiguration config =
-           SimpleUniverse.getPreferredConfiguration();
+        //GraphicsConfiguration config =
+        //   SimpleUniverse.getPreferredConfiguration();
 
-        Canvas3D c = new Canvas3D(config);
-	add("Center", c);
+        Canvas3D c = new Canvas3D();
+	c.addNotify();//add("Center", c);
 
 	// Create a simple scene and attach it to the virtual universe
 	BranchGroup scene = createSceneGraph();
@@ -265,14 +263,14 @@ public class Text3DLoad extends Applet implements ActionListener {
  	viewingPlatform.setNominalViewingTransform();
 
 	// add orbit behavior to ViewingPlatform
-	orbit = new OrbitBehavior(c, OrbitBehavior.REVERSE_ALL |
+	/*orbit = new OrbitBehavior(c, OrbitBehavior.REVERSE_ALL |
 				  OrbitBehavior.STOP_ZOOM);
 	BoundingSphere bounds =
 	    new BoundingSphere(new Point3d(0.0, 0.0, 0.0), 100.0);
 	orbit.setSchedulingBounds(bounds);
 	viewingPlatform.setViewPlatformBehavior(orbit);
 
-	behaviorsOn = true;
+	behaviorsOn = true;*/
 
 	
 	u.addBranchGraph(scene);
@@ -286,12 +284,12 @@ public class Text3DLoad extends Applet implements ActionListener {
 	if (e.getSource() == button) {
 	    ViewingPlatform v = u.getViewingPlatform();
 	    if (behaviorsOn) {
-		v.setViewPlatformBehavior(null);
+		//v.setViewPlatformBehavior(null);
 		button.setLabel("add behaviors");
 		behaviorsOn = false;
 	    }
 	    else {
-		v.setViewPlatformBehavior(orbit);
+		//v.setViewPlatformBehavior(orbit);
 		button.setLabel("remove behaviors");
 		behaviorsOn = true;
 	    }

@@ -143,11 +143,11 @@ public class LOD extends javax.swing.JFrame {
 
     private Canvas3D createUniverse() {
 	// Get the preferred graphics configuration for the default screen
-	GraphicsConfiguration config =
-	    SimpleUniverse.getPreferredConfiguration();
+	//GraphicsConfiguration config =
+	//    SimpleUniverse.getPreferredConfiguration();
 
 	// Create a Canvas3D using the preferred configuration
-	Canvas3D c = new Canvas3D(config);
+	Canvas3D c = new Canvas3D();
 
 	// Create simple universe with view branch
 	univ = new SimpleUniverse(c);
@@ -161,14 +161,14 @@ public class LOD extends javax.swing.JFrame {
 
 	// add orbit behavior to the ViewingPlatform, but disable rotate
 	// and translate
-	OrbitBehavior orbit = new OrbitBehavior(c,
+	/*OrbitBehavior orbit = new OrbitBehavior(c,
 						OrbitBehavior.REVERSE_ZOOM |
 						OrbitBehavior.DISABLE_ROTATE |
 						OrbitBehavior.DISABLE_TRANSLATE);
 	BoundingSphere bounds =
 	    new BoundingSphere(new Point3d(0.0, 0.0, 0.0), 100.0);
 	orbit.setSchedulingBounds(bounds);
-	viewingPlatform.setViewPlatformBehavior(orbit);       
+	viewingPlatform.setViewPlatformBehavior(orbit);  */     
         
 	// This will move the ViewPlatform back a bit so the
 	// objects in the scene can be viewed.
@@ -189,7 +189,7 @@ public class LOD extends javax.swing.JFrame {
 
 	// Create Canvas3D and SimpleUniverse; add canvas to drawing panel
 	Canvas3D c = createUniverse();
-	drawingPanel.add(c, java.awt.BorderLayout.CENTER);
+	c.addNotify();//drawingPanel.add(c, java.awt.BorderLayout.CENTER);
 
 	// Create the content branch and add it to the universe
 	scene = createSceneGraph();

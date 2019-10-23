@@ -45,7 +45,7 @@
 package org.jdesktop.j3d.examples.offscreen_canvas3d;
 
 import java.awt.GraphicsConfiguration;
-import java.awt.image.BufferedImage;
+import javaawt.image.BufferedImage;
 
 import org.jogamp.java3d.Canvas3D;
 import org.jogamp.java3d.ImageComponent;
@@ -58,10 +58,10 @@ class OffScreenCanvas3D extends Canvas3D {
   Raster drawRaster;
   boolean printing = false;
 
-  public OffScreenCanvas3D(GraphicsConfiguration gconfig, boolean offscreenflag,
+  public OffScreenCanvas3D( boolean offscreenflag,
 			Raster drawRaster) {
 
-    super(gconfig, offscreenflag);
+    super( offscreenflag);
     this.drawRaster = drawRaster;
   }
 

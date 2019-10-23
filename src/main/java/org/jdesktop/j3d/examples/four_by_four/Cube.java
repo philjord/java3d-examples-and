@@ -44,9 +44,10 @@
 
 package org.jdesktop.j3d.examples.four_by_four;
 
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.QuadArray;
+import org.jogamp.java3d.ShaderAppearance;
 import org.jogamp.java3d.Shape3D;
+import org.jogamp.java3d.utils.geometry.GeometryInfo;
 
 public class Cube extends Object {
 
@@ -94,7 +95,7 @@ public class Cube extends Object {
       0.0f, -1.0f,  0.0f,     0.0f, -1.0f,  0.0f,
    };
 
-   public Cube(Appearance appearance) {
+   public Cube(ShaderAppearance appearance) {
 
       QuadArray quadArray = new QuadArray(24, QuadArray.COORDINATES |
                                               QuadArray.NORMALS |
@@ -102,14 +103,16 @@ public class Cube extends Object {
       quadArray.setCoordinates(0, verts);
       quadArray.setNormals(0, normals);
 
-      shape3D = new Shape3D(quadArray, appearance);
+      GeometryInfo gi = new GeometryInfo(quadArray);
+  	  gi.convertToIndexedTriangles();	
+  	  shape3D = new Shape3D(gi.getIndexedGeometryArray(true, true, true, true, true), appearance);
       shape3D.setCapability(Shape3D.ALLOW_GEOMETRY_READ);
       shape3D.setCapability(Shape3D.ALLOW_GEOMETRY_WRITE);
       shape3D.setCapability(Shape3D.ALLOW_APPEARANCE_READ);
       shape3D.setCapability(Shape3D.ALLOW_APPEARANCE_WRITE);
    }
 
-   public Cube(Appearance appearance, float size) {
+   public Cube(ShaderAppearance appearance, float size) {
 
       QuadArray quadArray = new QuadArray(24, QuadArray.COORDINATES | 
                                               QuadArray.NORMALS);
@@ -119,7 +122,9 @@ public class Cube extends Object {
       quadArray.setCoordinates(0, verts);
       quadArray.setNormals(0, normals);
 
-      shape3D = new Shape3D(quadArray, appearance);
+      GeometryInfo gi = new GeometryInfo(quadArray);
+  	  gi.convertToIndexedTriangles();	
+  	  shape3D = new Shape3D(gi.getIndexedGeometryArray(true, true, true, true, true), appearance);
       shape3D.setCapability(Shape3D.ALLOW_GEOMETRY_READ);
       shape3D.setCapability(Shape3D.ALLOW_GEOMETRY_WRITE);
       shape3D.setCapability(Shape3D.ALLOW_APPEARANCE_READ);

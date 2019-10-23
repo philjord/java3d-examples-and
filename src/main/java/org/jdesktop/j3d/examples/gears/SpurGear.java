@@ -44,12 +44,13 @@
 
 package org.jdesktop.j3d.examples.gears;
 
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.GeometryArray;
 import org.jogamp.java3d.QuadArray;
+import org.jogamp.java3d.ShaderAppearance;
 import org.jogamp.java3d.Shape3D;
 import org.jogamp.java3d.TransformGroup;
 import org.jogamp.java3d.TriangleStripArray;
+import org.jogamp.java3d.utils.geometry.GeometryInfo;
 import org.jogamp.vecmath.Point3f;
 import org.jogamp.vecmath.Vector3f;
 
@@ -150,7 +151,7 @@ public class SpurGear extends Gear {
      */
     public SpurGear(int toothCount, float pitchCircleRadius, float shaftRadius,
 		    float addendum, float dedendum, float gearThickness,
-		    Appearance look) {
+		    ShaderAppearance look) {
 	this(toothCount, pitchCircleRadius, shaftRadius, addendum, dedendum,
 	     gearThickness, gearThickness, 0.25f, look);
     }
@@ -169,7 +170,7 @@ public class SpurGear extends Gear {
      */
     public SpurGear(int toothCount, float pitchCircleRadius, float shaftRadius,
 		    float addendum, float dedendum, float gearThickness,
-		    float toothTipThickness, Appearance look) {
+		    float toothTipThickness, ShaderAppearance look) {
 	this(toothCount, pitchCircleRadius, shaftRadius, addendum, dedendum,
 	     gearThickness, toothTipThickness, 0.25f, look);
 	}
@@ -191,7 +192,7 @@ public class SpurGear extends Gear {
     public SpurGear(int toothCount, float pitchCircleRadius, float shaftRadius,
 		    float addendum, float dedendum, float gearThickness,
 		    float toothTipThickness, float toothToValleyAngleRatio,
-		    Appearance look) {
+		    ShaderAppearance look) {
 
     this(toothCount, pitchCircleRadius, addendum, dedendum,
 	 toothToValleyAngleRatio);
@@ -222,7 +223,7 @@ public class SpurGear extends Gear {
     void addTeeth(float pitchCircleRadius, float rootRadius,
 		  float outsideRadius, float gearThickness,
 		  float toothTipThickness, float toothToValleyAngleRatio,
-		  Appearance look) {
+		  ShaderAppearance look) {
 	int index;
 	Shape3D newShape;
 	
@@ -402,7 +403,9 @@ public class SpurGear extends Gear {
 	    rearGearTeeth.setNormal(index + 3, rearToothNormal);
 
 	}
-	newShape = new Shape3D(rearGearTeeth, look);
+	GeometryInfo gi = new GeometryInfo(rearGearTeeth);
+	gi.convertToIndexedTriangles();	
+	newShape = new Shape3D(gi.getIndexedGeometryArray(true, true, true, true, true), look);
 	this.addChild(newShape);
 
 	/*
@@ -556,7 +559,10 @@ public class SpurGear extends Gear {
 	    leftNormal.cross(frontNormal, tempVector1);
 	    leftNormal.normalize();
 	}
-	newShape = new Shape3D(topGearTeeth, look);
+	
+	gi = new GeometryInfo(topGearTeeth);
+	gi.convertToIndexedTriangles();	
+	newShape = new Shape3D(gi.getIndexedGeometryArray(true, true, true, true, true), look);
 	this.addChild(newShape);
     }
 

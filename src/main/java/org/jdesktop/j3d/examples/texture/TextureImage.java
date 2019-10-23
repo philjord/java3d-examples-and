@@ -46,11 +46,9 @@ package org.jdesktop.j3d.examples.texture;
 
 import java.applet.Applet;
 import java.awt.BorderLayout;
-import java.awt.GraphicsConfiguration;
 
 import org.jdesktop.j3d.examples.Resources;
 import org.jogamp.java3d.Alpha;
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.BoundingSphere;
 import org.jogamp.java3d.BranchGroup;
 import org.jogamp.java3d.Canvas3D;
@@ -62,6 +60,7 @@ import org.jogamp.java3d.TransformGroup;
 import org.jogamp.java3d.utils.applet.MainFrame;
 import org.jogamp.java3d.utils.geometry.Box;
 import org.jogamp.java3d.utils.image.TextureLoader;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.vecmath.Point3d;
 
@@ -85,7 +84,7 @@ public class TextureImage extends Applet {
 	objRoot.addChild(objTrans);
 
 	// Create appearance object for textured cube
-	Appearance app = new Appearance();
+	SimpleShaderAppearance app = new SimpleShaderAppearance();
         Texture tex = new TextureLoader(texImage,
                 TextureLoader.BY_REFERENCE | TextureLoader.Y_UP,
                 this).getTexture();
@@ -140,11 +139,11 @@ public class TextureImage extends Applet {
             }
 	}
 	setLayout(new BorderLayout());
-        GraphicsConfiguration config =
-           SimpleUniverse.getPreferredConfiguration();
+   //     GraphicsConfiguration config =
+    //       SimpleUniverse.getPreferredConfiguration();
 
-        Canvas3D c = new Canvas3D(config);
-	add("Center", c);
+        Canvas3D c = new Canvas3D();
+	c.addNotify();//add("Center", c);
 
 	// Create a simple scene and attach it to the virtual universe
 	BranchGroup scene = createSceneGraph();

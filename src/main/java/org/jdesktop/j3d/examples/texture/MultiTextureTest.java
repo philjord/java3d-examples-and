@@ -47,13 +47,11 @@ package org.jdesktop.j3d.examples.texture;
 import java.applet.Applet;
 import java.awt.BorderLayout;
 import java.awt.Choice;
-import java.awt.GraphicsConfiguration;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 
 import org.jdesktop.j3d.examples.Resources;
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.BoundingSphere;
 import org.jogamp.java3d.BranchGroup;
 import org.jogamp.java3d.Canvas3D;
@@ -70,6 +68,7 @@ import org.jogamp.java3d.utils.applet.MainFrame;
 import org.jogamp.java3d.utils.behaviors.vp.OrbitBehavior;
 import org.jogamp.java3d.utils.geometry.Box;
 import org.jogamp.java3d.utils.image.TextureLoader;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.java3d.utils.universe.ViewingPlatform;
 import org.jogamp.vecmath.Color3f;
@@ -158,7 +157,7 @@ public class MultiTextureTest extends Applet implements ItemListener{
     objTrans.setCapability(TransformGroup.ENABLE_PICK_REPORTING);
     objScale.addChild(objTrans);
     
-    Appearance ap = new Appearance();
+    SimpleShaderAppearance ap = new SimpleShaderAppearance();
     
     // load textures
     TextureAttributes texAttr1 = new TextureAttributes();
@@ -247,11 +246,11 @@ public class MultiTextureTest extends Applet implements ItemListener{
       }
       
       setLayout(new BorderLayout());
-      GraphicsConfiguration config =
-              SimpleUniverse.getPreferredConfiguration();
+      //GraphicsConfiguration config =
+      //        SimpleUniverse.getPreferredConfiguration();
       
-      Canvas3D c = new Canvas3D(config);
-      add("Center", c);
+      Canvas3D c = new Canvas3D();
+      c.addNotify();//add("Center", c);
       
       BranchGroup scene = createSceneGraph();
       u = new SimpleUniverse(c);
@@ -262,13 +261,13 @@ public class MultiTextureTest extends Applet implements ItemListener{
       viewingPlatform.setNominalViewingTransform();
       
       // add orbit behavior but disable translate
-      OrbitBehavior orbit =
+      /*OrbitBehavior orbit =
               new OrbitBehavior(c, OrbitBehavior.REVERSE_ALL |
               OrbitBehavior.DISABLE_TRANSLATE);
       BoundingSphere bounds =
               new BoundingSphere(new Point3d(0.0, 0.0, 0.0), 100.0);
       orbit.setSchedulingBounds(bounds);
-      viewingPlatform.setViewPlatformBehavior(orbit);
+      viewingPlatform.setViewPlatformBehavior(orbit);*/
       
       u.addBranchGraph(scene);
       

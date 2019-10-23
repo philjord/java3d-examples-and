@@ -51,7 +51,6 @@ import java.awt.GraphicsConfiguration;
 
 import org.jdesktop.j3d.examples.Resources;
 import org.jogamp.java3d.AmbientLight;
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.Background;
 import org.jogamp.java3d.BoundingSphere;
 import org.jogamp.java3d.BranchGroup;
@@ -72,6 +71,7 @@ import org.jogamp.java3d.utils.geometry.ColorCube;
 import org.jogamp.java3d.utils.geometry.Cone;
 import org.jogamp.java3d.utils.geometry.Cylinder;
 import org.jogamp.java3d.utils.image.TextureLoader;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.java3d.utils.universe.ViewingPlatform;
 import org.jogamp.vecmath.Color3f;
@@ -118,18 +118,18 @@ public class OrientedTest extends Applet {
 	BoundingSphere bounds =
 	    new BoundingSphere(new Point3d(0.0,0.0,0.0), 100.0);
 
-        Appearance apText = new Appearance();
+	SimpleShaderAppearance apText = new SimpleShaderAppearance();
 	Material m = new Material();
         m.setLightingEnable(true);
 	apText.setMaterial(m);
 
 
-        Appearance apEarth= new Appearance();
+	SimpleShaderAppearance apEarth= new SimpleShaderAppearance();
         Material mm = new Material();
         mm.setLightingEnable(true);
 	apEarth.setMaterial(mm);
 
-        Appearance apStone = new Appearance();
+	SimpleShaderAppearance apStone = new SimpleShaderAppearance();
 	apStone.setMaterial(mm);
 
 // create 3D text 
@@ -250,11 +250,11 @@ public class OrientedTest extends Applet {
         }
 
 	setLayout(new BorderLayout());
-        GraphicsConfiguration config =
-           SimpleUniverse.getPreferredConfiguration();
+    //GraphicsConfiguration config =
+    // SimpleUniverse.getPreferredConfiguration();
 
-        Canvas3D c = new Canvas3D(config);
-	add("Center", c);
+    Canvas3D c = new Canvas3D( );
+	c.addNotify();//add("Center", c);
 
 	// Create a simple scene and attach it to the virtual universe
 	BranchGroup scene = createSceneGraph();

@@ -44,10 +44,12 @@
 
 package org.jdesktop.j3d.examples.picking;
 
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.Geometry;
+import org.jogamp.java3d.GeometryArray;
 import org.jogamp.java3d.QuadArray;
 import org.jogamp.java3d.Shape3D;
+import org.jogamp.java3d.utils.geometry.GeometryInfo;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.vecmath.Vector3f;
 
 public class Cube extends Shape3D {
@@ -94,20 +96,23 @@ public class Cube extends Shape3D {
     };
 
     public Cube() {
-	super();
-
-	int i;
-
-	QuadArray cube = new QuadArray(24, QuadArray.COORDINATES |
-		QuadArray.NORMALS);
-
-	cube.setCoordinates(0, verts);
-        for (i = 0; i < 24; i++) {
-            cube.setNormal(i, normals[i/4]);
-        }
-
-	cube.setCapability(Geometry.ALLOW_INTERSECT);
-        setGeometry(cube);
-        setAppearance(new Appearance());
+		super();
+	
+		int i;
+	
+		QuadArray cube = new QuadArray(24, QuadArray.COORDINATES |
+			QuadArray.NORMALS);
+	
+		cube.setCoordinates(0, verts);
+	        for (i = 0; i < 24; i++) {
+	            cube.setNormal(i, normals[i/4]);
+	        }
+	    GeometryInfo gi = new GeometryInfo(cube);
+		gi.convertToIndexedTriangles();	
+		GeometryArray cube2 = gi.getIndexedGeometryArray(true, true, true, true, true);
+		cube2.setCapability(Geometry.ALLOW_INTERSECT);
+		
+        setGeometry(cube2);
+        setAppearance(new SimpleShaderAppearance());
     }
 }

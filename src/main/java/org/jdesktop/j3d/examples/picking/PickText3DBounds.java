@@ -47,10 +47,8 @@ package org.jdesktop.j3d.examples.picking;
 import java.applet.Applet;
 import java.awt.BorderLayout;
 import java.awt.Font;
-import java.awt.GraphicsConfiguration;
 
 import org.jogamp.java3d.AmbientLight;
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.Background;
 import org.jogamp.java3d.BoundingSphere;
 import org.jogamp.java3d.BranchGroup;
@@ -71,6 +69,7 @@ import org.jogamp.java3d.utils.picking.PickTool;
 import org.jogamp.java3d.utils.picking.behaviors.PickRotateBehavior;
 import org.jogamp.java3d.utils.picking.behaviors.PickTranslateBehavior;
 import org.jogamp.java3d.utils.picking.behaviors.PickZoomBehavior;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.vecmath.Color3f;
 import org.jogamp.vecmath.Point3d;
@@ -113,7 +112,7 @@ public class PickText3DBounds extends Applet {
     objScale.addChild(bg);
     
     Material m = new Material(objColor, eColor, objColor, sColor, 100.0f);
-    Appearance a = new Appearance();
+    SimpleShaderAppearance a = new SimpleShaderAppearance();
     m.setLightingEnable(true);
     a.setMaterial(m);
     Font3D f3d = new Font3D(new Font("TestFont", Font.PLAIN, 1),
@@ -166,8 +165,8 @@ public class PickText3DBounds extends Applet {
     ColoringAttributes caL2 = new ColoringAttributes();
     caL1.setColor(lColor1);
     caL2.setColor(lColor2);
-    Appearance appL1 = new Appearance();
-    Appearance appL2 = new Appearance();
+    SimpleShaderAppearance appL1 = new SimpleShaderAppearance();
+    SimpleShaderAppearance appL2 = new SimpleShaderAppearance();
     appL1.setColoringAttributes(caL1);
     appL2.setColoringAttributes(caL2);
     l1Trans.addChild(new Sphere(0.05f,
@@ -224,11 +223,11 @@ public class PickText3DBounds extends Applet {
 
     public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
 	setLayout(new BorderLayout());
-	GraphicsConfiguration config =
-	    SimpleUniverse.getPreferredConfiguration();
+	//GraphicsConfiguration config =
+	//    SimpleUniverse.getPreferredConfiguration();
 	
-	Canvas3D c = new Canvas3D(config);
-	add("Center", c);
+	Canvas3D c = new Canvas3D();
+	c.addNotify();//add("Center", c);
 	
 	u = new SimpleUniverse(c);
 	BranchGroup scene = createSceneGraph(c);

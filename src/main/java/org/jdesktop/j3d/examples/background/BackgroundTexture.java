@@ -32,7 +32,6 @@ package org.jdesktop.j3d.examples.background;
 import java.awt.GraphicsConfiguration;
 
 import org.jdesktop.j3d.examples.Resources;
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.Background;
 import org.jogamp.java3d.BoundingSphere;
 import org.jogamp.java3d.BranchGroup;
@@ -102,7 +101,7 @@ public class BackgroundTexture extends javax.swing.JFrame
 
 		float scaleZ[] = { 0.3f, 0.2f, 0.1f, 0.1f, 0.3f, 0.2f, 0.1f, 0.3f, 0.3f, 0.2f, 0.1f, 0.3f, 0.3f, 0.2f, 0.1f, 0.2f };
 
-		Appearance a1 = new SimpleShaderAppearance();
+		SimpleShaderAppearance a1 = new SimpleShaderAppearance();
 
 		Color3f eColor = new Color3f(0.0f, 0.0f, 0.0f);
 		Color3f sColor = new Color3f(0.5f, 0.5f, 1.0f);
@@ -142,10 +141,10 @@ public class BackgroundTexture extends javax.swing.JFrame
 	private Canvas3D createUniverse()
 	{
 		// Get the preferred graphics configuration for the default screen
-		GraphicsConfiguration config = SimpleUniverse.getPreferredConfiguration();
+		//GraphicsConfiguration config = SimpleUniverse.getPreferredConfiguration();
 
 		// Create a Canvas3D using the preferred configuration
-		Canvas3D c = new Canvas3D(config);
+		Canvas3D c = new Canvas3D();
 
 		// Create simple universe with view branch
 		univ = new SimpleUniverse(c);
@@ -160,17 +159,17 @@ public class BackgroundTexture extends javax.swing.JFrame
 		TransformGroup viewTrans = univ.getViewingPlatform().getViewPlatformTransform();
 
 		// Create the rotate behavior node
-		MouseRotate behavior1 = new MouseRotate(viewTrans);
+		MouseRotate behavior1 = new MouseRotate(c, viewTrans);
 		scene.addChild(behavior1);
 		behavior1.setSchedulingBounds(bounds);
 
 		// Create the zoom behavior node
-		MouseZoom behavior2 = new MouseZoom(viewTrans);
+		MouseZoom behavior2 = new MouseZoom(c, viewTrans);
 		scene.addChild(behavior2);
 		behavior2.setSchedulingBounds(bounds);
 
 		// Create the translate behavior node
-		MouseTranslate behavior3 = new MouseTranslate(viewTrans);
+		MouseTranslate behavior3 = new MouseTranslate(c, viewTrans);
 		scene.addChild(behavior3);
 		behavior3.setSchedulingBounds(bounds);
 
@@ -202,7 +201,7 @@ public class BackgroundTexture extends javax.swing.JFrame
 
 		// Create Canvas3D and SimpleUniverse; add canvas to drawing panel
 		Canvas3D c = createUniverse();
-		drawingPanel.add(c, java.awt.BorderLayout.CENTER);
+		c.addNotify();//drawingPanel.add(c, java.awt.BorderLayout.CENTER);
 
 		// Let Java 3D perform optimizations on this scene graph.
 		scene.compile();

@@ -40,10 +40,10 @@
 	</contributors>
 	
 	<scm>
-		<connection>scm:git:http://github.com/philjord/java3d-examples</connection>
+		<connection>scm:git:http://github.com/philjord/java3d-examples-and</connection>
 		<developerConnection></developerConnection>
 		<tag>HEAD</tag>
-		<url>https://github.com/philjord/java3d-examples</url>
+		<url>https://github.com/philjord/java3d-examples-and</url>
 	</scm>
 
 	<properties>
@@ -56,15 +56,37 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>java3d-core</artifactId>
-			<version>${project.version}</version>
-		</dependency>		
+	  		<groupId>org.jogamp.java3d</groupId>
+	  		<artifactId>java3d-core-and</artifactId>
+	  		<version>1.7.0</version>
+	  	</dependency>
+	  	<dependency>
+	  		<groupId>org.jogamp.java3d</groupId>
+	  		<artifactId>java3d-utils-and</artifactId>
+	  		<version>1.7.0</version>
+	  	</dependency>
+	  	<dependency>
+	  		<groupId>org.jogamp.java3d</groupId>
+	  		<artifactId>java3d-core</artifactId>
+	  		<version>1.7.0</version>  	
+	  	</dependency>
+	  	<dependency>
+	  		<groupId>org.jogamp.java3d</groupId>
+	  		<artifactId>java3d-utils</artifactId>
+	  		<version>1.7.0</version>
+	  	</dependency>
+	  	<!--  to run the android examples on a windows machine we need to access all of the natives libraries -->
+	  	<dependency>
+			<groupId>org.jogamp.gluegen</groupId>
+			<artifactId>gluegen-rt-main</artifactId>
+			<version>${jogamp.version}</version>
+		</dependency>
 		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>java3d-utils</artifactId>
-			<version>${project.version}</version>
-		</dependency>		
+			<groupId>org.jogamp.jogl</groupId>
+			<artifactId>jogl-all-main</artifactId>
+			<version>${jogamp.version}</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

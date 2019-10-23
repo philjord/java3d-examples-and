@@ -61,7 +61,6 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import org.jogamp.java3d.AmbientLight;
-import org.jogamp.java3d.Appearance;
 import org.jogamp.java3d.BoundingSphere;
 import org.jogamp.java3d.BranchGroup;
 import org.jogamp.java3d.Canvas3D;
@@ -84,6 +83,7 @@ import org.jogamp.java3d.TriangleArray;
 import org.jogamp.java3d.TriangleStripArray;
 import org.jogamp.java3d.utils.applet.MainFrame;
 import org.jogamp.java3d.utils.behaviors.vp.OrbitBehavior;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.java3d.utils.universe.ViewingPlatform;
 import org.jogamp.vecmath.Color3f;
@@ -97,7 +97,7 @@ GeometryUpdater {
     RenderingAttributes ra;
     ColoringAttributes ca;
     Material mat;			   
-    Appearance app;			   
+    SimpleShaderAppearance app;			   
     JComboBox geomType;
     JComboBox vertexType;
     JComboBox colorType;
@@ -222,7 +222,7 @@ GeometryUpdater {
 	BranchGroup objRoot = new BranchGroup();
 
 	// Set up attributes to render lines
-        app = new Appearance();
+    app = new SimpleShaderAppearance();
 
 	transp = new TransparencyAttributes();
 	transp.setTransparency(0.5f);
@@ -335,37 +335,37 @@ GeometryUpdater {
     public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
 	Container contentPane = getContentPane();
 	
-        Canvas3D c = new Canvas3D(SimpleUniverse.getPreferredConfiguration());
-        contentPane.add("Center", c);
+        Canvas3D c = new Canvas3D();
+        c.addNotify();//contentPane.add("Center", c);
 
         BranchGroup scene = createSceneGraph();
         // SimpleUniverse is a Convenience Utility class
         u = new SimpleUniverse(c);
 
-	// add mouse behaviors to the viewingPlatform
-	ViewingPlatform viewingPlatform = u.getViewingPlatform();
+        // add mouse behaviors to the viewingPlatform
+        ViewingPlatform viewingPlatform = u.getViewingPlatform();
 
         // This will move the ViewPlatform back a bit so the
         // objects in the scene can be viewed.
         viewingPlatform.setNominalViewingTransform();
         u.addBranchGraph(scene);
 
-	// add Orbit behavior to the ViewingPlatform
-	OrbitBehavior orbit = new OrbitBehavior(c, OrbitBehavior.REVERSE_ALL);
-	BoundingSphere bounds =
-	    new BoundingSphere(new Point3d(0.0, 0.0, 0.0), 100.0);
-	orbit.setSchedulingBounds(bounds);
-	viewingPlatform.setViewPlatformBehavior(orbit);
-
-	// Create GUI
-	JPanel p = new JPanel();
-	BoxLayout boxlayout = new BoxLayout(p, 
-					    BoxLayout.Y_AXIS);
-	p.add(createGeometryByReferencePanel());
-	p.add(createUpdatePanel());
-	p.setLayout(boxlayout);
-
-	contentPane.add("South", p);
+		/*// add Orbit behavior to the ViewingPlatform
+		OrbitBehavior orbit = new OrbitBehavior(c, OrbitBehavior.REVERSE_ALL);
+		BoundingSphere bounds =
+		    new BoundingSphere(new Point3d(0.0, 0.0, 0.0), 100.0);
+		orbit.setSchedulingBounds(bounds);
+		viewingPlatform.setViewPlatformBehavior(orbit);*/
+	
+		// Create GUI
+		JPanel p = new JPanel();
+		BoxLayout boxlayout = new BoxLayout(p, 
+						    BoxLayout.Y_AXIS);
+		p.add(createGeometryByReferencePanel());
+		p.add(createUpdatePanel());
+		p.setLayout(boxlayout);
+	
+		contentPane.add("South", p);
     }
 
     public void destroy() {
