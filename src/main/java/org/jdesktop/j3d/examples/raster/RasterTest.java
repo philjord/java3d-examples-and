@@ -30,6 +30,7 @@
 package org.jdesktop.j3d.examples.raster;
 
 import java.awt.GraphicsConfiguration;
+import java.awt.image.BufferedImage;
 import java.net.URL;
 
 import org.jdesktop.j3d.examples.Resources;
@@ -50,6 +51,9 @@ import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.vecmath.Point3d;
 import org.jogamp.vecmath.Point3f;
 import org.jogamp.vecmath.Vector3d;
+
+import javaawt.imageio.ImageIO;
+import javaawt.imageio.VMImageIO;
 
 /**
  * OffScreenTest programs with no UI.
@@ -97,7 +101,7 @@ public class RasterTest extends javax.swing.JFrame
 			}
 		}
 
-		TextureLoader tex = new TextureLoader(bgImage, new String("RGB"), TextureLoader.BY_REFERENCE | TextureLoader.Y_UP, this);
+		TextureLoader tex = new TextureLoader(bgImage, true);
 
 		ImageComponent2D buffer2 = (ImageComponent2D) tex.getTexture().getImage(0);
 		buffer2.setCapability(ImageComponent2D.ALLOW_IMAGE_READ);
@@ -193,6 +197,7 @@ public class RasterTest extends javax.swing.JFrame
 	 */
 	public static void main(String args[])
 	{
+		ImageIO.installBufferedImageImpl(VMImageIO.class);
 		System.setProperty("sun.awt.noerasebackground", "true");
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			@Override

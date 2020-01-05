@@ -507,9 +507,6 @@ public class StencilOutline extends javax.swing.JFrame
 
 		System.setProperty("j3d.stencilClear", "true");
 
-		//Uncomment to use the gl2es2 pipeline, also see other commented code
-		//System.setProperty("j3d.rend", "jogl2es2");
-
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run()

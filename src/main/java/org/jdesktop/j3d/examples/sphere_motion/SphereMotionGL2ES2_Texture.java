@@ -68,6 +68,8 @@ import org.jogamp.vecmath.Point3f;
 import org.jogamp.vecmath.Vector3d;
 import org.jogamp.vecmath.Vector3f;
 
+import javaawt.imageio.VMImageIO;
+
 public class SphereMotionGL2ES2_Texture extends javax.swing.JFrame
 {
 
@@ -147,7 +149,7 @@ public class SphereMotionGL2ES2_Texture extends javax.swing.JFrame
 
 		
 		a.setMaterial(m);
-		Texture txtr = new TextureLoader(Resources.getResource("main/resources/images/earth.jpg"), this).getTexture();
+		Texture txtr = new TextureLoader(Resources.getResource("main/resources/images/earth.jpg")).getTexture();
 		a.setTexture(txtr);
 		Sphere sph = new Sphere(1.0f, Sphere.GENERATE_NORMALS | Sphere.GENERATE_TEXTURE_COORDS, 200, a);
 		objScale.addChild(sph);
@@ -362,9 +364,8 @@ public class SphereMotionGL2ES2_Texture extends javax.swing.JFrame
 	 */
 	public static void main(final String args[])
 	{
+		javaawt.imageio.ImageIO.installBufferedImageImpl(VMImageIO.class);
 		System.setProperty("sun.awt.noerasebackground", "true");
-		System.setProperty("j3d.rend", "jogl2es2");
-		System.setProperty("j3d.displaylist", "false");
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run()

@@ -80,7 +80,7 @@ public class BackgroundTexture extends javax.swing.JFrame
 		TransformGroup objTrans = new TransformGroup();
 		objScale.addChild(objTrans);
 
-		TextureLoader tex = new TextureLoader(bgImage, new String("RGB"), TextureLoader.BY_REFERENCE | TextureLoader.Y_UP, this);
+		TextureLoader tex = new TextureLoader(bgImage, this);
 
 		
 		

@@ -410,7 +410,6 @@ public class VertexAttrTestGLSL extends javax.swing.JFrame
 	public static void main(String args[])
 	{
 		System.setProperty("sun.awt.noerasebackground", "true");
-		System.setProperty("j3d.rend","jogl2es2");
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run()

@@ -46,8 +46,7 @@ package org.jdesktop.j3d.examples.raster;
 
 import java.applet.Applet;
 import java.awt.BorderLayout;
-import java.awt.GraphicsConfiguration;
-import java.awt.image.BufferedImage;
+import javaawt.image.BufferedImage;
 import java.util.Iterator;
 
 import org.jogamp.java3d.Alpha;

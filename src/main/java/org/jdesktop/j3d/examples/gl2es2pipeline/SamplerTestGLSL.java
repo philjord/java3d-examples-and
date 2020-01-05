@@ -63,6 +63,8 @@ import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.java3d.utils.universe.ViewingPlatform;
 import org.jogamp.vecmath.Point3d;
 
+import javaawt.imageio.VMImageIO;
+
 public class SamplerTestGLSL extends javax.swing.JFrame
 {
 
@@ -250,8 +252,8 @@ public class SamplerTestGLSL extends javax.swing.JFrame
 	 */
 	public static void main(String args[])
 	{
+		javaawt.imageio.ImageIO.installBufferedImageImpl(VMImageIO.class);
 		System.setProperty("sun.awt.noerasebackground", "true");
-		System.setProperty("j3d.rend","jogl2es2");
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run()

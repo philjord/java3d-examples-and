@@ -704,7 +704,6 @@ public class ShaderTestGLSL extends javax.swing.JFrame
 	public static void main(String args[])
 	{
 		System.setProperty("sun.awt.noerasebackground", "true");
-		System.setProperty("j3d.rend","jogl2es2");
 		new ShaderTestGLSL().setVisible(true);
 	}
 

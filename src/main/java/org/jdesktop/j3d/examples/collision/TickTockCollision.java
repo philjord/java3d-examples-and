@@ -57,6 +57,7 @@ import org.jogamp.java3d.Shape3D;
 import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.TransformGroup;
 import org.jogamp.java3d.utils.geometry.ColorCube;
+import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.vecmath.Color3f;
 import org.jogamp.vecmath.Point3d;
@@ -175,6 +176,7 @@ public class TickTockCollision extends javax.swing.JFrame {
 	// Create a new ColoringAttributes object for the shape's
 	// appearance and make it writable at runtime.
 	Appearance app = shape.getAppearance();
+	((SimpleShaderAppearance)app).setUpdatableCapabilities();
 	ColoringAttributes ca = new ColoringAttributes();
 	ca.setColor(0.6f, 0.3f, 0.0f);
 	app.setCapability(Appearance.ALLOW_COLORING_ATTRIBUTES_WRITE);

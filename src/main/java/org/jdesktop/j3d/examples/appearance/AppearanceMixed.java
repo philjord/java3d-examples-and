@@ -44,8 +44,6 @@
 
 package org.jdesktop.j3d.examples.appearance;
 
-import java.awt.GraphicsConfiguration;
-
 import org.jdesktop.j3d.examples.Resources;
 import org.jogamp.java3d.Alpha;
 import org.jogamp.java3d.AmbientLight;
@@ -75,6 +73,9 @@ import org.jogamp.vecmath.Point3d;
 import org.jogamp.vecmath.Point3f;
 import org.jogamp.vecmath.Vector3d;
 import org.jogamp.vecmath.Vector3f;
+
+import javaawt.image.VMBufferedImage;
+import javaawt.imageio.VMImageIO;
 
 public class AppearanceMixed extends javax.swing.JFrame {
 
@@ -534,7 +535,10 @@ public class AppearanceMixed extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {System.setProperty("sun.awt.noerasebackground", "true"); 
+    public static void main(String args[]) {
+    	javaawt.image.BufferedImage.installBufferedImageDelegate(VMBufferedImage.class);
+		javaawt.imageio.ImageIO.installBufferedImageImpl(VMImageIO.class);
+    	System.setProperty("sun.awt.noerasebackground", "true"); 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new AppearanceMixed().setVisible(true);

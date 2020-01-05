@@ -44,9 +44,12 @@
 
 package org.jdesktop.j3d.examples.distort_glyph;
 
-import java.awt.Font;
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsEnvironment;
+import javaawt.Font;
+import javaawt.GraphicsConfiguration;
+import javaawt.GraphicsEnvironment;
+import javaawt.VMFont;
+import javaawt.image.VMBufferedImage;
+import javaawt.imageio.VMImageIO;
 
 import org.jdesktop.j3d.examples.Resources;
 import org.jogamp.java3d.AmbientLight;
@@ -141,7 +144,7 @@ public class DistortGlyphTest extends javax.swing.JFrame {
         app.setTexCoordGeneration(tcg);
 
         // use a customized FontExtrusion object to control the depth of the text
-        java.awt.geom.GeneralPath gp = new java.awt.geom.GeneralPath();
+        javaawt.geom.GeneralPath gp = new javaawt.geom.GeneralPath();
         gp.moveTo(0, 0);
         gp.lineTo(.01f, .01f);
         gp.lineTo(.2f, .01f);
@@ -149,7 +152,7 @@ public class DistortGlyphTest extends javax.swing.JFrame {
         FontExtrusion fontEx = new FontExtrusion(gp);
 
         // our glyph
-        Font fnt = new Font("dialog", Font.BOLD, 1);
+        Font fnt = new VMFont(new java.awt.Font("dialog", java.awt.Font.BOLD, 1), 1);
         Font3D f3d = new Font3D(fnt, .001, fontEx);
         GeometryArray geom = f3d.getGlyphGeometry('A');
         Shape3D shape = new Shape3D(geom, app);
@@ -239,7 +242,10 @@ public class DistortGlyphTest extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {System.setProperty("sun.awt.noerasebackground", "true"); 
+    public static void main(String args[]) {
+    	javaawt.image.BufferedImage.installBufferedImageDelegate(VMBufferedImage.class);
+		javaawt.imageio.ImageIO.installBufferedImageImpl(VMImageIO.class);
+    	System.setProperty("sun.awt.noerasebackground", "true"); 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new DistortGlyphTest().setVisible(true);

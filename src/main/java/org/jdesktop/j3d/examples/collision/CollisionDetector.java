@@ -73,7 +73,7 @@ public class CollisionDetector extends Behavior {
 
     public CollisionDetector(Shape3D s) {
 	shape = s;
-	shapeAppearance = shape.getAppearance();
+	shapeAppearance = shape.getAppearance();	 
 	shapeColoring = shapeAppearance.getColoringAttributes();
 	inCollision = false;
     }

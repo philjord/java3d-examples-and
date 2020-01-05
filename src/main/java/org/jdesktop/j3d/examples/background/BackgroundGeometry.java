@@ -44,8 +44,6 @@
 
 package org.jdesktop.j3d.examples.background;
 
-import java.awt.GraphicsConfiguration;
-
 import org.jdesktop.j3d.examples.Resources;
 import org.jogamp.java3d.Background;
 import org.jogamp.java3d.BoundingSphere;
@@ -67,6 +65,8 @@ import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.vecmath.Color3f;
 import org.jogamp.vecmath.Point3d;
 import org.jogamp.vecmath.Vector3f;
+
+import javaawt.imageio.VMImageIO;
 
 public class BackgroundGeometry extends javax.swing.JFrame {
 
@@ -106,10 +106,7 @@ public class BackgroundGeometry extends javax.swing.JFrame {
         bg.setGeometry(backGeoBranch);
         objTrans.addChild(bg);
 
-        TextureLoader tex = new TextureLoader(bgImage,
-                new String("RGB"),
-                TextureLoader.BY_REFERENCE | TextureLoader.Y_UP,
-                this);
+        TextureLoader tex = new TextureLoader(bgImage, this);
         if (tex != null) 
 	    backgroundApp.setTexture(tex.getTexture());
 
@@ -266,7 +263,9 @@ public class BackgroundGeometry extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {System.setProperty("sun.awt.noerasebackground", "true"); 
+    public static void main(String args[]) {
+    	javaawt.imageio.ImageIO.installBufferedImageImpl(VMImageIO.class);
+    	System.setProperty("sun.awt.noerasebackground", "true"); 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new BackgroundGeometry().setVisible(true);

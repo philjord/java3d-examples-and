@@ -44,8 +44,6 @@
 
 package org.jdesktop.j3d.examples.appearance;
 
-import java.awt.GraphicsConfiguration;
-
 import org.jdesktop.j3d.examples.Resources;
 import org.jogamp.java3d.Alpha;
 import org.jogamp.java3d.AmbientLight;
@@ -73,6 +71,8 @@ import org.jogamp.vecmath.Point3d;
 import org.jogamp.vecmath.Vector3d;
 import org.jogamp.vecmath.Vector3f;
 
+import javaawt.imageio.VMImageIO;
+
 public class AppearanceTest extends javax.swing.JFrame {
 
     private java.net.URL texImage = null;
@@ -89,7 +89,7 @@ public class AppearanceTest extends javax.swing.JFrame {
 	    new BoundingSphere(new Point3d(0.0,0.0,0.0), 100.0);
 
 	// Set up the background
-	TextureLoader bgTexture = new TextureLoader(bgImage, this);
+	TextureLoader bgTexture = new TextureLoader(bgImage);
 	Background bg = new Background(bgTexture.getImage());
 	bg.setApplicationBounds(bounds);
 	objRoot.addChild(bg);
@@ -203,7 +203,7 @@ public class AppearanceTest extends javax.swing.JFrame {
 	case 4:
 	    {
 		// Set up the texture map
-		TextureLoader tex = new TextureLoader(texImage, this);
+		TextureLoader tex = new TextureLoader(texImage);
 		app.setTexture(tex.getTexture());
 
  		TextureAttributes texAttr = new TextureAttributes();
@@ -404,7 +404,9 @@ public class AppearanceTest extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {System.setProperty("sun.awt.noerasebackground", "true"); 
+    public static void main(String args[]) {
+    	javaawt.imageio.ImageIO.installBufferedImageImpl(VMImageIO.class);
+    	System.setProperty("sun.awt.noerasebackground", "true"); 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new AppearanceTest().setVisible(true);

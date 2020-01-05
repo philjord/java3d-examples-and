@@ -65,6 +65,8 @@ import org.jogamp.vecmath.Color3f;
 import org.jogamp.vecmath.Point3d;
 import org.jogamp.vecmath.Point3f;
 
+import javaawt.imageio.VMImageIO;
+
 public class EnvironmentMappingGLSL extends javax.swing.JFrame
 {
 
@@ -228,8 +230,8 @@ public class EnvironmentMappingGLSL extends javax.swing.JFrame
 	 */
 	public static void main(String args[])
 	{
+		javaawt.imageio.ImageIO.installBufferedImageImpl(VMImageIO.class);
 		System.setProperty("sun.awt.noerasebackground", "true");
-		System.setProperty("j3d.rend", "jogl2es2");
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run()
