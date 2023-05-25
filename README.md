@@ -1,5 +1,8 @@
 Java3D Examples Readme
 ===
+NOTE! mavenisation mean sthe class path no longer is used in building, so all dependancies demand they bemavens and installed and so on
+So I've just linked the source form teh 3 required projects until I decide how to deploy those odd shims
+
 This project contains the source code for the Java3D example programs.     
 
 The source code for j3d-examples is licensed under a Berkely Software Distribution (BSD) License.  

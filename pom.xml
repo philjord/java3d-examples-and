@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.jogamp.java3d</groupId>
-	<artifactId>java3d-examples</artifactId>
+	<artifactId>java3d-examples-and</artifactId>
 	<version>1.7.1</version>
 
-	<name>Java 3D Examples</name>
-	<description>Examples for the Java 3D Graphics API</description>
+	<name>Java 3D Examples for Android</name>
+	<description>Examples for the Java 3D Graphics API for Android</description>
 
 	<licenses>
 		<license>
@@ -47,13 +47,26 @@
 	</scm>
 
 	<properties>
-		<jogamp.version>2.3.2</jogamp.version>
+		<jogamp.version>2.4.0</jogamp.version>
 
 		<!-- NB: Avoid platform encoding warning when copying resources. -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
-
+	<repositories>
+          <repository>
+            <id>jogamp-remote</id>
+            <name>jogamp test mirror</name>
+            <url>https://www.jogamp.org/deployment/maven/</url>
+            <layout>default</layout>
+          </repository>
+          <repository>
+            <id>jogamp-java3d-remote</id>
+            <name>jogamp java3d test mirror</name>
+            <url>https://www.jogamp.org/deployment/maven-java3d/</url>
+            <layout>default</layout>
+          </repository>
+    </repositories>
 	<dependencies>
 		<dependency>
 	  		<groupId>org.jogamp.java3d</groupId>
@@ -65,28 +78,30 @@
 	  		<artifactId>java3d-utils-and</artifactId>
 	  		<version>${project.version}</version>
 	  	</dependency>
-	  	<dependency>
+	 	<dependency>
 	  		<groupId>org.jogamp.java3d</groupId>
 	  		<artifactId>java3d-core</artifactId>
 	  		<version>${project.version}</version>	
+	  		<optional>true</optional>
 	  	</dependency>
 	  	<dependency>
 	  		<groupId>org.jogamp.java3d</groupId>
 	  		<artifactId>java3d-utils</artifactId>
 	  		<version>${project.version}</version>
+	  		<optional>true</optional>
 	  	</dependency>
 	  	<!--  to run the android examples on a windows machine we need to access all of the natives libraries -->
-	  	<dependency>
+	 	<dependency>
 			<groupId>org.jogamp.gluegen</groupId>
 			<artifactId>gluegen-rt-main</artifactId>
 			<version>${jogamp.version}</version>
-			<optional>true</optional> <!-- otherwise dependent project will pull this in -->
-		</dependency>
-		<dependency>
+			<optional>true</optional> <!--  otherwise dependent project will pull this in -->
+		</dependency> 
+	 	<dependency>
 			<groupId>org.jogamp.jogl</groupId>
 			<artifactId>jogl-all-main</artifactId>
 			<version>${jogamp.version}</version>
-			<optional>true</optional> <!-- otherwise dependent project will pull this in -->
+			<optional>true</optional> <!--  otherwise dependent project will pull this in -->
 		</dependency>
 
 	</dependencies>
