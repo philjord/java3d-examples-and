@@ -279,6 +279,7 @@ public class ObjLoad extends javax.swing.JFrame {
 	// Create Canvas3D and SimpleUniverse; add canvas to drawing panel
 	Canvas3D c = createUniverse();
 	c.addNotify();//drawingPanel.add(c, java.awt.BorderLayout.CENTER);
+	c.getGLWindow().getDelegatedWindow().setSize(700, 700);
 
 	// Create the content branch and add it to the universe
 	scene = createSceneGraph();
