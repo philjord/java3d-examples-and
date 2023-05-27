@@ -78,6 +78,8 @@
 	  		<artifactId>java3d-utils-and</artifactId>
 	  		<version>${project.version}</version>
 	  	</dependency>
+	  	<!--  this project uses project refs here, so we don't have the shaded merged jar file from the deploy target -->
+	  	<!--  this non shaded source is also why the shim code has to be linked -->
 	  	<dependency>
 	  		<groupId>org.jogamp.java3d</groupId>
 	  		<artifactId>java3d-core</artifactId>
@@ -90,19 +92,7 @@
 	  		<version>${project.version}</version>
 	  		<optional>true</optional>
 	  	</dependency>
-	  	<!--  to run the android examples on a windows machine we need to access all of the natives libraries -->
-	  	<dependency>
-			<groupId>org.jogamp.gluegen</groupId>
-			<artifactId>gluegen-rt-main</artifactId>
-			<version>${jogamp.version}</version>
-			<optional>true</optional> <!-- otherwise dependent project will pull this in -->
-		</dependency>
-		<dependency>
-			<groupId>org.jogamp.jogl</groupId>
-			<artifactId>jogl-all-main</artifactId>
-			<version>${jogamp.version}</version>
-			<optional>true</optional> <!-- otherwise dependent project will pull this in -->
-		</dependency>
+
 
 	</dependencies>
 
