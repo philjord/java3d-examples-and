@@ -8,6 +8,8 @@
 // See 3Dlabs-License.txt for license information
 //
 
+precision mediump float;
+
 //uniform float GrainSizeRecip;
 //uniform vec3  DarkColor;
 //uniform vec3  spread;

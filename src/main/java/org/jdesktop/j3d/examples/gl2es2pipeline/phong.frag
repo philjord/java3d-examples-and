@@ -45,6 +45,8 @@
 // A GLSL fragment program for handling 1 directional light with specular.
 // This implements per-pixel lighting (Phong shading)
 
+precision mediump float;
+
 // GL2ES2: Java3D built-in uniforms, these are calculated and passsed in if declared here
 uniform mat4 glModelViewMatrix;
 

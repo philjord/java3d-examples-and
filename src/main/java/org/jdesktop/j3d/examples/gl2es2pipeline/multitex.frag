@@ -42,6 +42,8 @@
  * $State$
  */
 
+precision mediump float;
+
 uniform float cloudFactor;
 uniform sampler2D earthTex;
 uniform sampler2D cloudTex;

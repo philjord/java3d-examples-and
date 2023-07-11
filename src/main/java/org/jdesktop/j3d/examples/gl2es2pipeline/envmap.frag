@@ -9,6 +9,8 @@
 // See 3Dlabs-License.txt for license information
 //
 
+precision mediump float;
+
 const vec3 Xunitvec = vec3 (1.0, 0.0, 0.0);
 const vec3 Yunitvec = vec3 (0.0, 1.0, 0.0);
 

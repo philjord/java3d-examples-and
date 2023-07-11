@@ -9,6 +9,9 @@
 //
 
 // GL2ES2: non buit-in varyings
+
+precision mediump float;
+
 varying vec2 glTexCoord0;
 varying vec4 C;
 

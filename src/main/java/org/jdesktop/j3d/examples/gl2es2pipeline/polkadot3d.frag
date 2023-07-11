@@ -7,6 +7,9 @@
 //
 // See 3Dlabs-License.txt for license information
 //
+
+precision mediump float;
+
 varying float LightIntensity;
 varying vec3 MCPosition;
 

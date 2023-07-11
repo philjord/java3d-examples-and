@@ -13,6 +13,8 @@
 //uniform float Edge;
 //uniform float Phong;
 
+precision mediump float;
+
 vec3 DiffuseColor = vec3(0.5,0.5,1.0);
 vec3 PhongColor = vec3(0.75,0.75,1.0);
 float Edge = 0.64;

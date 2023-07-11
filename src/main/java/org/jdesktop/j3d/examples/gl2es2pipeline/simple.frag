@@ -46,6 +46,8 @@
 // function of the distance of the fragment position from the center
 // of the window
 
+precision mediump float;
+
 //GL2ES2: varying color data needs to be defined
 varying vec4 glFrontColor;
 varying vec4 glFrontSecondaryColor;

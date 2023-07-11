@@ -9,6 +9,8 @@
 // See 3Dlabs-License.txt for license information
 //
 
+precision mediump float;
+
 uniform vec3  BrickColor;
 //uniform vec3   MortarColor;
 //uniform vec2  BrickSize;
