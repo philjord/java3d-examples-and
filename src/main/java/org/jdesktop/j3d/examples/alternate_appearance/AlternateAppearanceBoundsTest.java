@@ -126,6 +126,7 @@ implements ActionListener {
 	Container contentPane = getContentPane();
 	
         Canvas3D c = new Canvas3D();
+    	c.addNotify();
         //contentPane.add("Center", c);
 
         BranchGroup scene = createSceneGraph();
@@ -138,19 +139,19 @@ implements ActionListener {
         u.addBranchGraph(scene);
 
 
-	// Create GUI
-	JPanel p = new JPanel();
-	BoxLayout boxlayout = new BoxLayout(p, 
-					    BoxLayout.Y_AXIS);
-	p.add(createBoundsPanel());
-	p.add(createMaterialPanel());
-	p.setLayout(boxlayout);
-	
-	contentPane.add("South", p);
+		// Create GUI
+		JPanel p = new JPanel();
+		BoxLayout boxlayout = new BoxLayout(p, 
+						    BoxLayout.Y_AXIS);
+		p.add(createBoundsPanel());
+		p.add(createMaterialPanel());
+		p.setLayout(boxlayout);
+		
+		contentPane.add("South", p);
     }
 
     public void destroy() {
-	u.cleanup();
+    	u.cleanup();
     }
     
     BranchGroup createSceneGraph() {

@@ -105,41 +105,42 @@ implements ActionListener {
     }
 
     public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
-	Container contentPane = getContentPane();
+		Container contentPane = getContentPane();
 	
         Canvas3D c = new Canvas3D();
+        c.addNotify();
         //contentPane.add("Center", c);
 
         BranchGroup scene = createSceneGraph();
         // SimpleUniverse is a Convenience Utility class
-	u = new SimpleUniverse(c);
+        u = new SimpleUniverse(c);
 
-	// add mouse behaviors to the viewingPlatform
-	ViewingPlatform viewingPlatform = u.getViewingPlatform();
+        // add mouse behaviors to the viewingPlatform
+        ViewingPlatform viewingPlatform = u.getViewingPlatform();
 
         // This will move the ViewPlatform back a bit so the
         // objects in the scene can be viewed.
         viewingPlatform.setNominalViewingTransform();
 
-	//OrbitBehavior orbit = new OrbitBehavior(c,
-	//					OrbitBehavior.REVERSE_ALL);
-	//BoundingSphere bounds = new BoundingSphere(new Point3d(0.0, 0.0, 0.0),
-	//					   100.0);
-	//orbit.setSchedulingBounds(bounds);
-	//viewingPlatform.setViewPlatformBehavior(orbit);
+		//OrbitBehavior orbit = new OrbitBehavior(c,
+		//					OrbitBehavior.REVERSE_ALL);
+		//BoundingSphere bounds = new BoundingSphere(new Point3d(0.0, 0.0, 0.0),
+		//					   100.0);
+		//orbit.setSchedulingBounds(bounds);
+		//viewingPlatform.setViewPlatformBehavior(orbit);
 	
         u.addBranchGraph(scene);
 
 
-	// Create GUI
-	JPanel p = new JPanel();
-	BoxLayout boxlayout = new BoxLayout(p, 
-					    BoxLayout.Y_AXIS);
-	p.add(createScopingPanel());
-	p.add(createMaterialPanel());
-	p.setLayout(boxlayout);
-	
-	contentPane.add("South", p);
+		// Create GUI
+		JPanel p = new JPanel();
+		BoxLayout boxlayout = new BoxLayout(p, 
+						    BoxLayout.Y_AXIS);
+		p.add(createScopingPanel());
+		p.add(createMaterialPanel());
+		p.setLayout(boxlayout);
+		
+		contentPane.add("South", p);
     }
 
     public void destroy() {
