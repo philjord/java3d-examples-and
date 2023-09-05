@@ -4,7 +4,7 @@
 
 	<groupId>org.jogamp.java3d</groupId>
 	<artifactId>java3d-examples-and</artifactId>
-	<version>1.7.1</version>
+	<version>1.7.2</version>
 
 	<name>Java 3D Examples for Android</name>
 	<description>Examples for the Java 3D Graphics API for Android</description>
@@ -47,7 +47,7 @@
 	</scm>
 
 	<properties>
-		<jogamp.version>2.4.0</jogamp.version>
+		<jogamp.version>2.5.0</jogamp.version>
 
 		<!-- NB: Avoid platform encoding warning when copying resources. -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -130,6 +130,18 @@
 						</manifest>
 					</archive>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<artifactId>maven-javadoc-plugin</artifactId>
