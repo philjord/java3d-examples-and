@@ -45,13 +45,12 @@
 package org.jdesktop.j3d.examples.alternate_appearance;
 
 import java.awt.Container;
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
-import javax.swing.JApplet;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
@@ -67,8 +66,6 @@ import org.jogamp.java3d.Material;
 import org.jogamp.java3d.Shape3D;
 import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.TransformGroup;
-import org.jogamp.java3d.utils.applet.MainFrame;
-import org.jogamp.java3d.utils.behaviors.vp.OrbitBehavior;
 import org.jogamp.java3d.utils.shader.SimpleShaderAppearance;
 import org.jogamp.java3d.utils.universe.SimpleUniverse;
 import org.jogamp.java3d.utils.universe.ViewingPlatform;
@@ -76,7 +73,10 @@ import org.jogamp.vecmath.Color3f;
 import org.jogamp.vecmath.Point3d;
 import org.jogamp.vecmath.Vector3f;
 
-public class AlternateAppearanceScopeTest extends JApplet 
+import javaawt.image.VMBufferedImage;
+import javaawt.imageio.VMImageIO;
+
+public class AlternateAppearanceScopeTest extends JFrame 
 implements ActionListener {
 
 
@@ -102,9 +102,7 @@ implements ActionListener {
     private SimpleUniverse u;
     
     public AlternateAppearanceScopeTest() {
-    }
-
-    public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
+     
 		Container contentPane = getContentPane();
 	
         Canvas3D c = new Canvas3D();
@@ -369,8 +367,17 @@ implements ActionListener {
     }
 			   
 			   
-    public static void main(String[] args) {System.setProperty("sun.awt.noerasebackground", "true"); 
-	Frame frame = new MainFrame(new AlternateAppearanceScopeTest(), 800, 800);
-    }
+    public static void main(String[] args) {
+		javaawt.image.BufferedImage.installBufferedImageDelegate(VMBufferedImage.class);
+		javaawt.imageio.ImageIO.installBufferedImageImpl(VMImageIO.class);
+		System.setProperty("sun.awt.noerasebackground", "true");
+		java.awt.EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				JFrame f = new AlternateAppearanceScopeTest();
+				f.setSize(200,200);
+				f.setVisible(true);
+			}
+		});
+	}
 
 }			   

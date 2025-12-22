@@ -44,8 +44,9 @@
 
 package org.jdesktop.j3d.examples.platform_geometry;
 
-import java.applet.Applet;
 import java.awt.BorderLayout;
+
+import javax.swing.JFrame;
 
 import org.jogamp.java3d.Alpha;
 import org.jogamp.java3d.BoundingSphere;
@@ -55,7 +56,6 @@ import org.jogamp.java3d.RotationInterpolator;
 import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.TransformGroup;
 import org.jogamp.java3d.TransparencyAttributes;
-import org.jogamp.java3d.utils.applet.MainFrame;
 import org.jogamp.java3d.utils.behaviors.mouse.MouseTranslate;
 import org.jogamp.java3d.utils.geometry.ColorCube;
 import org.jogamp.java3d.utils.geometry.Cylinder;
@@ -66,6 +66,9 @@ import org.jogamp.java3d.utils.universe.ViewingPlatform;
 import org.jogamp.vecmath.Point3d;
 import org.jogamp.vecmath.Vector3d;
 
+import javaawt.image.VMBufferedImage;
+import javaawt.imageio.VMImageIO;
+
 /**
  * This class demonstrates the use of the Universe builder for stand-alone
  * applications along with the use of the PlatformGeometry node that is
@@ -75,7 +78,7 @@ import org.jogamp.vecmath.Vector3d;
  * MouseTranslate utility has been used to allow this sphere to be dragged
  * around the canvas.
  */
-public class SimpleGeometry extends Applet {
+public class SimpleGeometry extends JFrame {
 
     SimpleUniverse u = null;
 
@@ -168,7 +171,7 @@ public class SimpleGeometry extends Applet {
         return pg;
     }
 
-    public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
+    public SimpleGeometry() {
 
         setLayout(new BorderLayout());
         //GraphicsConfiguration config =
@@ -196,17 +199,23 @@ public class SimpleGeometry extends Applet {
         u.addBranchGraph(scene);
     }
 
-    public SimpleGeometry(String[] args) {
-    }
-
-    public SimpleGeometry() {
-    }
+    
+    
 
     public void destroy() {
 	u.cleanup();
     }
 
-    public static void main(String[] args) {System.setProperty("sun.awt.noerasebackground", "true"); 
-	new MainFrame(new SimpleGeometry(args), 256, 256);
-    }
+    public static void main(String[] args) {
+		javaawt.image.BufferedImage.installBufferedImageDelegate(VMBufferedImage.class);
+		javaawt.imageio.ImageIO.installBufferedImageImpl(VMImageIO.class);
+		System.setProperty("sun.awt.noerasebackground", "true");
+		java.awt.EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				JFrame f = new SimpleGeometry();
+				f.setSize(200,200);
+				f.setVisible(true);
+			}
+		});
+	}
 }

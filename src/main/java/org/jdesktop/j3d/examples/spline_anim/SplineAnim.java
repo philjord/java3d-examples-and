@@ -44,11 +44,9 @@
 
 package org.jdesktop.j3d.examples.spline_anim;
 
-import java.applet.Applet;
 import java.awt.Button;
 import java.awt.Choice;
 import java.awt.FlowLayout;
-import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.ItemSelectable;
@@ -62,6 +60,8 @@ import java.awt.event.AdjustmentListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
+import javax.swing.JFrame;
+
 import org.jogamp.java3d.Alpha;
 import org.jogamp.java3d.AmbientLight;
 import org.jogamp.java3d.Background;
@@ -74,7 +74,6 @@ import org.jogamp.java3d.Light;
 import org.jogamp.java3d.Material;
 import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.TransformGroup;
-import org.jogamp.java3d.utils.applet.MainFrame;
 import org.jogamp.java3d.utils.behaviors.interpolators.KBKeyFrame;
 import org.jogamp.java3d.utils.behaviors.interpolators.KBRotPosScaleSplinePathInterpolator;
 import org.jogamp.java3d.utils.geometry.Cone;
@@ -87,6 +86,9 @@ import org.jogamp.vecmath.Point3d;
 import org.jogamp.vecmath.Point3f;
 import org.jogamp.vecmath.Vector3d;
 import org.jogamp.vecmath.Vector3f;
+
+import javaawt.image.VMBufferedImage;
+import javaawt.imageio.VMImageIO;
 
 
 
@@ -101,7 +103,7 @@ import org.jogamp.vecmath.Vector3f;
  * Use the middle mouse button to zoom in/out
  * Use the right mouse button to pan the scene 
  */
-public class SplineAnim extends Applet implements ActionListener, 
+public class SplineAnim extends JFrame implements ActionListener, 
                                                   AdjustmentListener,
                                                   ItemListener {
 
@@ -160,9 +162,7 @@ public class SplineAnim extends Applet implements ActionListener,
     private SimpleUniverse u = null;
 						      
     public SplineAnim() {
-    }
-
-    public void init() {System.setProperty("sun.awt.noerasebackground", "true"); 
+    
 	this.setLayout(new FlowLayout());   
 
         // Create the canvas and the UI
@@ -623,7 +623,16 @@ public class SplineAnim extends Applet implements ActionListener,
 
 
 
-    public static void main(String[] args) {System.setProperty("sun.awt.noerasebackground", "true"); 
-        Frame frame = new MainFrame(new SplineAnim(), 500, 600);
-    }
+    public static void main(String[] args) {
+		javaawt.image.BufferedImage.installBufferedImageDelegate(VMBufferedImage.class);
+		javaawt.imageio.ImageIO.installBufferedImageImpl(VMImageIO.class);
+		System.setProperty("sun.awt.noerasebackground", "true");
+		java.awt.EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				JFrame f = new SplineAnim();
+				f.setSize(200,200);
+				f.setVisible(true);
+			}
+		});
+	}
 }
