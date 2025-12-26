@@ -47,24 +47,11 @@
 	</scm>
 
 	<properties>
+
 		<!-- NB: Avoid platform encoding warning when copying resources. -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
-	<repositories>
-          <repository>
-            <id>jogamp-remote</id>
-            <name>jogamp test mirror</name>
-            <url>https://www.jogamp.org/deployment/maven/</url>
-            <layout>default</layout>
-          </repository>
-          <repository>
-            <id>jogamp-java3d-remote</id>
-            <name>jogamp java3d test mirror</name>
-            <url>https://www.jogamp.org/deployment/maven-java3d/</url>
-            <layout>default</layout>
-          </repository>
-    </repositories>
 	<dependencies>
 		<dependency>
 	  		<groupId>org.jogamp.java3d</groupId>
@@ -76,22 +63,6 @@
 	  		<artifactId>java3d-utils-and</artifactId>
 	  		<version>${project.version}</version>
 	  	</dependency>
-	  	<!--  this project uses project refs here, so we don't have the shaded merged jar file from the deploy target -->
-	  	<!--  this non shaded source is also why the shim code has to be linked -->
-	  	<dependency>
-	  		<groupId>org.jogamp.java3d</groupId>
-	  		<artifactId>java3d-core</artifactId>
-	  		<version>${project.version}</version>	
-	  		<optional>true</optional>
-	  	</dependency>
-	  	<dependency>
-	  		<groupId>org.jogamp.java3d</groupId>
-	  		<artifactId>java3d-utils</artifactId>
-	  		<version>${project.version}</version>
-	  		<optional>true</optional>
-	  	</dependency>
-
-
 	</dependencies>
 
 	<build>
